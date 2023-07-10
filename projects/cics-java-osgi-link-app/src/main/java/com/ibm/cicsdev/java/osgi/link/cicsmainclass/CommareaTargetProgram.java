@@ -1,4 +1,4 @@
-package com.ibm.cicsdev.java.osgi.program.control;
+package com.ibm.cicsdev.java.osgi.link.cicsmainclass;
 
 import java.io.IOException;
 
@@ -6,7 +6,7 @@ import org.osgi.annotation.bundle.Header;
 
 import com.ibm.cics.server.CommAreaHolder;
 import com.ibm.cics.server.Task;
-import com.ibm.cicsdev.java.osgi.program.control.data.ProgramData;
+import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 
 @Header(name = "CICS-MainClass", value = "${@class}")
 public class CommareaTargetProgram

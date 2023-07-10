@@ -1,4 +1,4 @@
-package com.ibm.cicsdev.java.osgi.program.control.data;
+package com.ibm.cicsdev.java.osgi.link.data;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;

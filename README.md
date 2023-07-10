@@ -10,7 +10,7 @@ The sample can be built using Apache Maven.
    ```sh
    mvn clean package
    ```
-3. The CICS bundle file will be stored in `cics-java-osgi-program-control-bundle/targets/cics-java-osgi-program-control-bundle-1.0.0-SNAPSHOT.zip`.
+3. The CICS bundle file will be stored in `cics-java-osgi-link-bundle/targets/cics-java-osgi-link-bundle-1.0.0-SNAPSHOT.zip`.
 
 ## Deploying
 Ensure the prerequisite library has been installed for the programs DFH$LCCC and DFH$LCCA. (*TODO - instrutctions/link here*).

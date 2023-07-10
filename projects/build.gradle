@@ -1,0 +1,16 @@
+
+allprojects {
+    group = 'com.ibm.cicsdev'
+    version = '1.0.0-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+ext.libraries = [
+    cics_bom: 'com.ibm.cics:com.ibm.cics.ts.bom:6.1-20220617120000',
+    osgi_annotations: 'org.osgi:osgi.annotation:8.0.0',
+]
+
+description = 'CICS OSGi program control application'

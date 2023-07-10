@@ -1,0 +1,14 @@
+
+plugins {
+    id 'java'
+    id "biz.aQute.bnd.builder" version "6.3.1"
+}
+
+dependencies {
+    compileOnly libraries.osgi_annotations
+    
+    compileOnly enforcedPlatform(libraries.cics_bom)
+    compileOnly 'com.ibm.cics:com.ibm.cics.server'
+}
+
+description = 'CICS OSGi program control application - OSGi bundle'

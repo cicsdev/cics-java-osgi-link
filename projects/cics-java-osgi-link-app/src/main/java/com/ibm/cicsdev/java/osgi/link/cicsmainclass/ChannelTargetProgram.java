@@ -1,4 +1,4 @@
-package com.ibm.cicsdev.java.osgi.program.control;
+package com.ibm.cicsdev.java.osgi.link.cicsmainclass;
 
 import java.nio.ByteBuffer;
 import java.util.List;
@@ -21,6 +21,9 @@ import com.ibm.cics.server.Task;
  * <p>
  * The program checks the contianer {@value #STRING_CONTAINER_NAME} expected the
  * value {@value #EXPECTED_STRING}.
+ * 
+ * @version 1.0.0
+ * @since 1.0.0
  */
 @Header(name = "CICS-MainClass", value = "${@class}")
 public class ChannelTargetProgram

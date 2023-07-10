@@ -1,7 +1,7 @@
-package com.ibm.cicsdev.java.osgi.program.control;
+package com.ibm.cicsdev.java.osgi.link.cicsmainclass;
 
-import static com.ibm.cicsdev.java.osgi.program.control.LinkUtils.getProgram;
-import static com.ibm.cicsdev.java.osgi.program.control.LinkUtils.getTerminal;
+import static com.ibm.cicsdev.java.osgi.link.LinkUtils.createProgram;
+import static com.ibm.cicsdev.java.osgi.link.LinkUtils.getTerminal;
 
 import java.nio.ByteBuffer;
 import java.util.Optional;
@@ -75,9 +75,8 @@ public class ChannelLinkProgram
         task.getOut().println("Entering ProgramControlClassThree.main()");
         try
         {
-            Program target = getProgram(TARGET_PROGRAM);
-            Channel channel = task.createChannel(CHANNEL_NAME);
-            ChannelLinkProgram program = new ChannelLinkProgram(task, target, channel);
+            Program target = createProgram(TARGET_PROGRAM);
+            ChannelLinkProgram program = new ChannelLinkProgram(task, target);
 
             program.run();
         }
@@ -93,9 +92,6 @@ public class ChannelLinkProgram
 
     /** The current task */
     private final Task task;
-
-    /** The current channel */
-    private final Channel channel;
 
     /** The target program */
     private final Program program;
@@ -114,11 +110,10 @@ public class ChannelLinkProgram
      * @param channel
      *            The current channel
      */
-    ChannelLinkProgram(Task task, Program program, Channel channel)
+    ChannelLinkProgram(Task task, Program program)
     {
         this.task = task;
         this.program = program;
-        this.channel = channel;
     }
 
     /**
@@ -142,18 +137,20 @@ public class ChannelLinkProgram
      */
     public void run() throws CicsException
     {
+        Channel channel = this.task.createChannel(CHANNEL_NAME);
+
         // Create the container "IntContainer".
-        createIntegerContainer(INT_INPUT);
+        createIntegerContainer(channel, INT_INPUT);
 
         // Create the container "StringContainer".
-        createStringContainer(STRING_INPUT);
+        createStringContainer(channel, STRING_INPUT);
 
         // Link to the target program with the channel.
         this.task.getOut().println("About to link to C program");
-        program.link(this.channel);
+        program.link(channel);
 
         // Get the container "Response" and check the data is "OK".
-        String response = readResponseContainer();
+        String response = readResponseContainer(channel);
         if (!response.equals(RESPONSE_OK))
         {
             this.task.getOut().println("Response was not OK");
@@ -171,7 +168,7 @@ public class ChannelLinkProgram
         // Update the terminal so it runs the next transaction with the created
         // channel.
         TerminalPrincipalFacility terminal = terminalOpt.get();
-        terminal.setNextChannel(this.channel);
+        terminal.setNextChannel(channel);
         terminal.setNextTransaction(NEXT_TRANSACTION);
     }
 
@@ -184,9 +181,9 @@ public class ChannelLinkProgram
      * @throws CicsException
      *             If creating the container fails.
      */
-    private void createIntegerContainer(int data) throws CicsException
+    private void createIntegerContainer(Channel channel, int data) throws CicsException
     {
-        Container intContainer = this.channel.createContainer(INT_CONTAINER_NAME);
+        Container intContainer = channel.createContainer(INT_CONTAINER_NAME);
 
         ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES);
         buffer.putInt(data);
@@ -203,9 +200,9 @@ public class ChannelLinkProgram
      * @throws CicsException
      *             If creating the container fails.
      */
-    private void createStringContainer(String data) throws CicsException
+    private void createStringContainer(Channel channel, String data) throws CicsException
     {
-        Container stringContainer = this.channel.createContainer(STRING_CONTAINER_NAME);
+        Container stringContainer = channel.createContainer(STRING_CONTAINER_NAME);
         stringContainer.putString(data);
     }
 
@@ -217,9 +214,9 @@ public class ChannelLinkProgram
      * @throws CicsException
      *             If reading the container fails.
      */
-    private String readResponseContainer() throws CicsException
+    private String readResponseContainer(Channel channel) throws CicsException
     {
-        Container responseContainer = this.channel.getContainer(RESPONSE_CONTAINER_NAME);
+        Container responseContainer = channel.getContainer(RESPONSE_CONTAINER_NAME);
         return responseContainer.getString();
     }
 }

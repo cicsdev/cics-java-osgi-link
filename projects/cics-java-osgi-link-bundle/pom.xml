@@ -3,18 +3,18 @@
 
   <parent>
     <groupId>com.ibm.cicsdev</groupId>
-    <artifactId>cics-java-osgi-program-control</artifactId>
+    <artifactId>cics-java-osgi-link</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>cics-java-osgi-program-control-bundle</artifactId>
+  <artifactId>cics-java-osgi-link-bundle</artifactId>
   <packaging>cics-bundle</packaging>
   <name>CICS OSGi program control application - CICS bundle</name>
 
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>cics-java-osgi-program-control-osgi</artifactId>
+      <artifactId>cics-java-osgi-link-app</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>

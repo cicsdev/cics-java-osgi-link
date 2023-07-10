@@ -8,12 +8,12 @@
 
   <!-- Application properties -->
   <groupId>com.ibm.cicsdev</groupId>
-  <artifactId>cics-java-osgi-program-control</artifactId>
+  <artifactId>cics-java-osgi-link</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <name>CICS OSGi program control application</name>
   <description>Demonstrates how OSGi CICS programs link to other programs sending a commarea or
     channel, or are linked to receiving a commarea or channel.</description>
-  <url>https://github.com/cicsdev/cics-java-liberty-link</url>
+  <url>https://github.com/cicsdev/cics-java-osgi-link</url>
   <developers>
     <developer>
       <name>IBM</name>
@@ -122,7 +122,7 @@
   </build>
 
   <modules>
-    <module>cics-java-osgi-program-control-osgi</module>
-    <module>cics-java-osgi-program-control-bundle</module>
+    <module>cics-java-osgi-link-app</module>
+    <module>cics-java-osgi-link-bundle</module>
   </modules>
 </project>
