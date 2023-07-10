@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cicsdefinitionprogram name="DFJ$LCCC"
+    description="CICS OSGi Container checker sample program"
+    language="LE370" />

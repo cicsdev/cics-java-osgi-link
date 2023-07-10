@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cicsdefinitionprogram name="DFJ$JPC1"
+    description="Java program that links to a program with a commarea"
+    jvm="YES"
+    jvmclass="com.ibm.cicsdev.java.osgi.program.control.CommareaLinkProgram"
+    jvmserver="DFHOSGI" />

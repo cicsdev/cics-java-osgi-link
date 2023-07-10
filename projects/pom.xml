@@ -1,0 +1,128 @@
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <packaging>pom</packaging>
+
+  <!-- Application properties -->
+  <groupId>com.ibm.cicsdev</groupId>
+  <artifactId>cics-java-osgi-program-control</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>CICS OSGi program control application</name>
+  <description>Demonstrates how OSGi CICS programs link to other programs sending a commarea or
+    channel, or are linked to receiving a commarea or channel.</description>
+  <url>https://github.com/cicsdev/cics-java-liberty-link</url>
+  <developers>
+    <developer>
+      <name>IBM</name>
+      <url>https://www.ibm.com/products/cics-transaction-server</url>
+    </developer>
+  </developers>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+    </license>
+  </licenses>
+
+  <properties>
+    <!-- CICS bundle properties -->
+    <cics.jvmserver>DFHOSGI</cics.jvmserver>
+
+    <!-- Dependency versions -->
+    <cics.annotation.processor.version>6.1</cics.annotation.processor.version>
+    <cics.bom.version>6.1-20220617120000</cics.bom.version>
+    <osgi.version>8.0.0</osgi.version>
+    <osgi.scr.version>1.5.0</osgi.scr.version>
+    <osgi.log.version>1.5.0</osgi.log.version>
+
+    <!-- Plugin versions -->
+    <bnd.plugin.version>6.3.1</bnd.plugin.version>
+    <cics.bundle.plugin.version>1.0.3</cics.bundle.plugin.version>
+    <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+
+    <!-- Java project properties -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.ibm.cics</groupId>
+        <artifactId>com.ibm.cics.ts.bom</artifactId>
+        <version>${cics.bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>osgi.annotation</artifactId>
+        <version>${osgi.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.service.component.annotations</artifactId>
+        <version>${osgi.scr.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.osgi</groupId>
+        <artifactId>org.osgi.service.log</artifactId>
+        <version>${osgi.log.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven.compiler.plugin.version}</version>
+        </plugin>
+
+        <!-- CICS bundle plugin for generating CICS bundles -->
+        <plugin>
+          <groupId>com.ibm.cics</groupId>
+          <artifactId>cics-bundle-maven-plugin</artifactId>
+          <version>${cics.bundle.plugin.version}</version>
+          <extensions>true</extensions>
+          <configuration>
+            <defaultJvmserver>${cics.jvmserver}</defaultJvmserver>
+          </configuration>
+        </plugin>
+
+        <!-- Bnd pluging for generating OSGi bundles -->
+        <plugin>
+          <groupId>biz.aQute.bnd</groupId>
+          <artifactId>bnd-maven-plugin</artifactId>
+          <version>${bnd.plugin.version}</version>
+          <extensions>true</extensions>
+          <executions>
+            <execution>
+              <id>jar</id>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>bnd-process</id>
+              <goals>
+                <goal>bnd-process</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <modules>
+    <module>cics-java-osgi-program-control-osgi</module>
+    <module>cics-java-osgi-program-control-bundle</module>
+  </modules>
+</project>
