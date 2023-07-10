@@ -1,17 +1,14 @@
 package com.ibm.cicsdev.java.osgi.link.cicsmainclass;
 
 import static com.ibm.cicsdev.java.osgi.link.LinkUtils.createProgram;
-import static com.ibm.cicsdev.java.osgi.link.LinkUtils.getTerminal;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import org.osgi.annotation.bundle.Header;
 
 import com.ibm.cics.server.CicsException;
 import com.ibm.cics.server.Program;
 import com.ibm.cics.server.Task;
-import com.ibm.cics.server.TerminalPrincipalFacility;
 import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 
 /**
@@ -25,10 +22,6 @@ import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
  * The target program, {@value #TARGET_PROGRAM}, is linked to with this
  * commarea. This should update the data in the commarea. The integer field is
  * set to a new value and the first character in the second field is modified.
- * <p>
- * Finally, the terminal the program is run on has the next transaction set to
- * {@value #NEXT_TRANSACTION}, which is the transaction that runs the
- * {@link CommareaTargetProgram}.
  * 
  * @version 1.0.0
  * @since 1.0.0
@@ -37,10 +30,7 @@ import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 public class CommareaLinkProgram
 {
     /** The target program to link to */
-    private static final String TARGET_PROGRAM = "DFH$LCCA";
-
-    /** The next transaction */
-    private static final String NEXT_TRANSACTION = "JPC2";
+    private static final String TARGET_PROGRAM = "CDEVMCTM";
 
     /** The input integer data */
     private static final int INTEGER_DATA = 654321;
@@ -127,24 +117,12 @@ public class CommareaLinkProgram
         byte[] inputData = generateCommareaData();
 
         // Link to the program
-        this.task.getOut().println("About to link to C program");
+        this.task.getOut().println("About to link to CICS program: " + this.program.getName());
         this.program.link(inputData);
 
         // Verify the output data
         ProgramData outputData = ProgramData.fromBytes(inputData);
         verifyOutputData(outputData);
-
-        // Set the next transaction
-        Optional<TerminalPrincipalFacility> terminalOpt = getTerminal(this.task);
-        if (!terminalOpt.isPresent())
-        {
-            this.task.getErr().println("Principal facility is not a terminal.");
-            return;
-        }
-
-        TerminalPrincipalFacility terminal = terminalOpt.get();
-        terminal.setNextCOMMAREA(inputData);
-        terminal.setNextTransaction(NEXT_TRANSACTION);
     }
 
     /**

@@ -55,16 +55,35 @@ public class CommareaTargetProgram
 
     public void run() throws IOException
     {
+        // Validate the input commarea data
         ProgramData data = ProgramData.fromBytes(this.commarea);
+        validateData(data);
 
-        if (data.getInteger() != 123)
+        // Create the new data
+        ProgramData newData = new ProgramData(123, 'y', 3.14f);
+
+        // Copy the new data into the existing commarea
+        System.arraycopy(newData.getBytes(), 0, commarea, 0, commarea.length);
+    }
+
+    private void validateData(ProgramData data)
+    {
+        // Validate the integer field
+        if (data.getInteger() != 654321)
         {
-            this.task.getErr().println("Value (" + data.getInteger() + ") does not match expected value (123)");
+            this.task.getErr().println("Value (" + data.getInteger() + ") does not match expected value (654321)");
         }
 
+        // Validate the character field
         if (data.getCharacter() != 'x')
         {
-            this.task.getErr().println("Value (" + data.getCharacter() + ") does not match expected value (x)");
+            this.task.getErr().println("Value (" + data.getCharacter() + ") does not match expected value (y)");
+        }
+
+        // Validate the decimal field
+        if (data.getDecimal() != 2.75f)
+        {
+            this.task.getErr().println("Value (" + data.getDecimal() + ") does not match expected value (2.75)");
         }
     }
 }

@@ -11,7 +11,7 @@
 
     <artifactId>cics-java-osgi-link-app</artifactId>
     <packaging>jar</packaging>
-    <name>CICS OSGi program control application - OSGi bundle</name>
+    <name>CICS OSGi link application - Application</name>
 
     <dependencies>
         <dependency>

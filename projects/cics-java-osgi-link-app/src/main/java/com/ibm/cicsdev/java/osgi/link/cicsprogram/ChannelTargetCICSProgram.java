@@ -3,18 +3,18 @@ package com.ibm.cicsdev.java.osgi.link.cicsprogram;
 import com.ibm.cics.server.Task;
 import com.ibm.cics.server.invocation.CICSProgram;
 
-public class ChannelTargetProgram
+public class ChannelTargetCICSProgram
 {
     static final String PROGRAM_NAME = "CDEVCPCT";
 
     private final Task task;
 
-    public ChannelTargetProgram()
+    public ChannelTargetCICSProgram()
     {
         this(Task.getTask());
     }
 
-    ChannelTargetProgram(Task task)
+    ChannelTargetCICSProgram(Task task)
     {
         this.task = task;
     }

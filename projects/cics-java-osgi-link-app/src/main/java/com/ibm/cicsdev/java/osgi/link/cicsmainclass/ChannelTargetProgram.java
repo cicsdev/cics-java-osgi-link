@@ -29,10 +29,13 @@ import com.ibm.cics.server.Task;
 public class ChannelTargetProgram
 {
     private static final String INT_CONTAINER_NAME = "IntContainer";
-    private static final int EXPECTED_INT = 123;
+    private static final int EXPECTED_INT = 654321;
 
     private static final String STRING_CONTAINER_NAME = "StringContainer";
-    private static final String EXPECTED_STRING = "Hello Java World";
+    private static final String EXPECTED_STRING = "Hello CICS Program";
+    private static final String OUTPUT_STRING = "Hello caller!";
+
+    private static final String RESPONSE_CONTAINER_NAME = "ResponseContainer";
 
     /**
      * Entry point to the CICS program.
@@ -108,14 +111,29 @@ public class ChannelTargetProgram
         List<String> containerNames = this.channel.getContainerNames();
         for (String containerName : containerNames)
         {
-            this.task.getOut().println("ProgramControlClassFour invoked with Container \"" + containerName + "\"");
+            this.task.getOut().println("ChannelTargetProgram invoked with Container \"" + containerName + "\"");
         }
+
+        boolean isValid = validateData();
+
+        // Write the response container
+        writeResponseContainer(isValid);
+
+        // Update the string data
+        Container stringData = this.channel.getContainer(STRING_CONTAINER_NAME);
+        stringData.putString(OUTPUT_STRING);
+    }
+
+    private boolean validateData() throws CicsException
+    {
+        boolean isValid = true;
 
         // Validate the integer container
         int integer = getIntContainerData();
         if (integer != EXPECTED_INT)
         {
             this.task.getErr().println("Value (" + integer + ") does not match expected value (123)");
+            isValid = false;
         }
 
         // Validate the string container
@@ -123,7 +141,10 @@ public class ChannelTargetProgram
         if (!EXPECTED_STRING.equals(stringData))
         {
             this.task.getErr().println("Value (" + stringData + ") does not match expected value (Hello Java World)");
+            isValid = false;
         }
+
+        return isValid;
     }
 
     private int getIntContainerData() throws CicsException
@@ -156,5 +177,16 @@ public class ChannelTargetProgram
 
         // Validate the actual data equals the expected data
         return stringContainer.getString();
+    }
+
+    private void writeResponseContainer(boolean isValid) throws CicsException
+    {
+        String responseData = "OK";
+        if (!isValid)
+        {
+            responseData = "INVALID";
+        }
+        Container response = this.channel.createContainer(RESPONSE_CONTAINER_NAME);
+        response.putString(responseData);
     }
 }

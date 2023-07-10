@@ -1,10 +1,8 @@
 package com.ibm.cicsdev.java.osgi.link.cicsmainclass;
 
 import static com.ibm.cicsdev.java.osgi.link.LinkUtils.createProgram;
-import static com.ibm.cicsdev.java.osgi.link.LinkUtils.getTerminal;
 
 import java.nio.ByteBuffer;
-import java.util.Optional;
 
 import org.osgi.annotation.bundle.Header;
 
@@ -13,7 +11,6 @@ import com.ibm.cics.server.CicsException;
 import com.ibm.cics.server.Container;
 import com.ibm.cics.server.Program;
 import com.ibm.cics.server.Task;
-import com.ibm.cics.server.TerminalPrincipalFacility;
 
 /**
  * Demonstrates how an OSGi CICS-MainClass program can link to a CICS program
@@ -40,9 +37,9 @@ import com.ibm.cics.server.TerminalPrincipalFacility;
 @Header(name = "CICS-MainClass", value = "${@class}")
 public class ChannelLinkProgram
 {
-    private static final String TARGET_PROGRAM = "DFH$LCCC";
+    private static final String TARGET_PROGRAM = "CDEVMCTC";
 
-    private static final String CHANNEL_NAME = "Channel3";
+    private static final String CHANNEL_NAME = "CICSDEV";
 
     /** Bit container name */
     private static final String INT_CONTAINER_NAME = "IntContainer";
@@ -52,15 +49,12 @@ public class ChannelLinkProgram
     /** Char container name */
     private static final String STRING_CONTAINER_NAME = "StringContainer";
     /** Char container data */
-    private static final String STRING_INPUT = "Hello C World";
+    private static final String STRING_INPUT = "Hello CICS Program";
 
     /** Response container name */
     private static final String RESPONSE_CONTAINER_NAME = "Response";
     /** Expected data in response container */
     private static final String RESPONSE_OK = "OK";
-
-    /** Next transaction to run in the CICS terminal */
-    private static final String NEXT_TRANSACTION = "JPC4";
 
     /**
      * Entry point to the CICS program.
@@ -146,7 +140,7 @@ public class ChannelLinkProgram
         createStringContainer(channel, STRING_INPUT);
 
         // Link to the target program with the channel.
-        this.task.getOut().println("About to link to C program");
+        this.task.getOut().println("About to link to CICS program");
         program.link(channel);
 
         // Get the container "Response" and check the data is "OK".
@@ -155,21 +149,7 @@ public class ChannelLinkProgram
         {
             this.task.getOut().println("Response was not OK");
             return;
-        }
-
-        // Get the current terminal
-        Optional<TerminalPrincipalFacility> terminalOpt = getTerminal(this.task);
-        if (!terminalOpt.isPresent())
-        {
-            this.task.getErr().println("Principal Facility is not a terminal");
-            return;
-        }
-
-        // Update the terminal so it runs the next transaction with the created
-        // channel.
-        TerminalPrincipalFacility terminal = terminalOpt.get();
-        terminal.setNextChannel(channel);
-        terminal.setNextTransaction(NEXT_TRANSACTION);
+        } 
     }
 
     /**

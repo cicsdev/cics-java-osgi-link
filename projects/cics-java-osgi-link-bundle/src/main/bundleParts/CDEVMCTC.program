@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cicsdefinitionprogram name="CDEVMCTC"
+    description="Java program that is linked with a channel"
+    jvm="YES"
+    jvmclass="com.ibm.cicsdev.java.osgi.link.cicsmainclass.ChannelTargetProgram"
+    jvmserver="OSGIJVMS" />

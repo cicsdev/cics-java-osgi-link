@@ -9,7 +9,7 @@
 
   <artifactId>cics-java-osgi-link-bundle</artifactId>
   <packaging>cics-bundle</packaging>
-  <name>CICS OSGi program control application - CICS bundle</name>
+  <name>CICS OSGi link application - CICS bundle</name>
 
   <dependencies>
     <dependency>

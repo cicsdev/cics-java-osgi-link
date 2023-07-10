@@ -6,21 +6,21 @@ import com.ibm.cics.server.Program;
 import com.ibm.cics.server.Task;
 import com.ibm.cics.server.invocation.CICSProgram;
 
-public class ChannelLinkProgram
+public class ChannelLinkCICSProgram
 {
     private static final String PROGRAM_NAME = "CDEVCPCL";
-    private static final String TARGET_PROGRAM = ChannelTargetProgram.PROGRAM_NAME;
+    private static final String TARGET_PROGRAM = ChannelTargetCICSProgram.PROGRAM_NAME;
     private static final String CHANNEL_NAME = "MYCHAN";
 
     private final Task task;
     private final Program program;
 
-    public ChannelLinkProgram()
+    public ChannelLinkCICSProgram()
     {
         this(Task.getTask(), new Program(TARGET_PROGRAM));
     }
 
-    ChannelLinkProgram(Task task, Program program)
+    ChannelLinkCICSProgram(Task task, Program program)
     {
         this.task = task;
         this.program = program;
