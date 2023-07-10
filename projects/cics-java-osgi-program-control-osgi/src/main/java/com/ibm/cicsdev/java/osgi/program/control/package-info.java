@@ -1,6 +1,6 @@
 
 /**
- * Sampels for controlling how programs link to other programs with commareas
+ * Samples for controlling how programs link to other programs with commareas
  * and channels.
  */
 @Export

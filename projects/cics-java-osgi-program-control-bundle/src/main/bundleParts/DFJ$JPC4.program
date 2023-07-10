@@ -3,4 +3,4 @@
     description="Java program that is linked to with a channel"
     jvm="YES"
     jvmclass="com.ibm.cicsdev.java.osgi.program.control.ChannelTargetProgram"
-    jvmserver="DFHOSGI" />
+    jvmserver="OSGIJVMS" />

@@ -29,7 +29,7 @@
 
   <properties>
     <!-- CICS bundle properties -->
-    <cics.jvmserver>DFHOSGI</cics.jvmserver>
+    <cics.jvmserver>OSGIJVMS</cics.jvmserver>
 
     <!-- Dependency versions -->
     <cics.annotation.processor.version>6.1</cics.annotation.processor.version>

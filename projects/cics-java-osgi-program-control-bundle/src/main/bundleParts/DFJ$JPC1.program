@@ -3,4 +3,4 @@
     description="Java program that links to a program with a commarea"
     jvm="YES"
     jvmclass="com.ibm.cicsdev.java.osgi.program.control.CommareaLinkProgram"
-    jvmserver="DFHOSGI" />
+    jvmserver="OSGIJVMS" />

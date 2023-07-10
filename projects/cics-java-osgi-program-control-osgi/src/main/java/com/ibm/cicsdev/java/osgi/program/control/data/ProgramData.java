@@ -3,11 +3,22 @@ package com.ibm.cicsdev.java.osgi.program.control.data;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
+/**
+ * Encapsulates data being passed between two programs on a commarea.
+ */
 public class ProgramData
 {
+    /** The local CCSID as a Java charset. */
     private static final Charset LOCAL_CCSID = Charset
             .forName(System.getProperty("com.ibm.cics.jvmserver.local.ccsid"));
 
+    /**
+     * Generates a {@link ProgramData} object from raw bytes.
+     * 
+     * @param bytes
+     *            The raw bytes.
+     * @return A {@link ProgramData} object
+     */
     public static ProgramData fromBytes(byte[] bytes)
     {
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
@@ -27,6 +38,14 @@ public class ProgramData
         return new ProgramData(integer, character, decimal);
     }
 
+    /**
+     * Helper method that converts a character into a {@link #LOCAL_CCSID}
+     * encoded byte.
+     * 
+     * @param character
+     *            The character to encode.
+     * @return The byte value of character, encoded in {@link #LOCAL_CCSID}.
+     */
     private static byte characterToEncodedByte(char character)
     {
         String characterStr = Character.toString(character);
@@ -34,10 +53,23 @@ public class ProgramData
         return bytes[0];
     }
 
+    /** An integer value */
     private final int integer;
+
+    /** A character value */
     private final char character;
+
+    /** A decimal value */
     private final float decimal;
 
+    /**
+     * @param integer
+     *            An integer value
+     * @param character
+     *            A character value
+     * @param decimal
+     *            A decimal value
+     */
     public ProgramData(int integer, char character, float decimal)
     {
         this.integer = integer;
@@ -45,6 +77,9 @@ public class ProgramData
         this.decimal = decimal;
     }
 
+    /**
+     * @return The object as an array of bytes, understood by target programs.
+     */
     public byte[] getBytes()
     {
         int bufferSize = Integer.BYTES + (Character.BYTES * 4) + Float.BYTES;
@@ -63,16 +98,25 @@ public class ProgramData
         return buffer.array();
     }
 
+    /**
+     * @return The integer value in the data
+     */
     public int getInteger()
     {
         return this.integer;
     }
 
+    /**
+     * @return The character value in the data
+     */
     public char getCharacter()
     {
         return character;
     }
 
+    /**
+     * @return The decimal value in the data
+     */
     public float getDecimal()
     {
         return decimal;

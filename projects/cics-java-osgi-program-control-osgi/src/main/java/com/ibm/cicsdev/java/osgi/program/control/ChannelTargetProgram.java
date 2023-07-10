@@ -14,7 +14,13 @@ import com.ibm.cics.server.Task;
  * Demonstrates how an OSGi CICS-MainClass program can be targeted by an EXEC
  * CICS LINK with a channel.
  * <p>
- * 
+ * All container in the channel are printed.
+ * <p>
+ * The program checks the contianer {@value #INT_CONTAINER_NAME} expected the
+ * value {@value #EXPECTED_INT}.
+ * <p>
+ * The program checks the contianer {@value #STRING_CONTAINER_NAME} expected the
+ * value {@value #EXPECTED_STRING}.
  */
 @Header(name = "CICS-MainClass", value = "${@class}")
 public class ChannelTargetProgram
@@ -28,7 +34,8 @@ public class ChannelTargetProgram
     /**
      * Entry point to the CICS program.
      * 
-     * @param args Not used.
+     * @param args
+     *            Not used.
      */
     public static void main(String[] args)
     {
