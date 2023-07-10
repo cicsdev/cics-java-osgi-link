@@ -2,7 +2,7 @@
 Demonstrates how OSGi CICS programs link to other programs sending a commarea or channel, or are linked to receiving a commarea or channel.
 
 ## Building
-The sample can be built using Apache Manven.
+The sample can be built using Apache Maven.
 
 ### Building with Apache Maven
 1. Change into the `projects/` directory.
