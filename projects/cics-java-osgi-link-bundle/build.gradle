@@ -12,7 +12,7 @@ dependencies {
 
 cicsBundle {
     build {
-        defaultJVMServer = "OSGIJVMS"
+        defaultJVMServer = "CDEVOSGI"
     }
 }
 

@@ -50,25 +50,12 @@ public class CommareaLinkProgram
      * @param args
      *            Not used.
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws CicsException
     {
         Task task = Task.getTask();
-        task.getOut().println("Entering CommareaLinkProgram.main()");
-
         CommareaLinkProgram program = new CommareaLinkProgram(task, createProgram(TARGET_PROGRAM));
-        try
-        {
-            program.run();
-        }
-        catch (CicsException | IOException e)
-        {
-            task.getErr().println("Caught checked exception");
-            e.printStackTrace(task.getErr());
-        }
-        finally
-        {
-            task.getOut().println("Leaving CommareaLinkProgram.main()");
-        }
+        
+        program.run();
     }
 
     /** The current CICS task */
@@ -111,13 +98,12 @@ public class CommareaLinkProgram
      *             If creating the containers, linking to the program, or
      *             reading the response container fails.
      */
-    public void run() throws CicsException, IOException
+    public void run() throws CicsException
     {
         // Generate the input data
         byte[] inputData = generateCommareaData();
 
         // Link to the program
-        this.task.getOut().println("About to link to CICS program: " + this.program.getName());
         this.program.link(inputData);
 
         // Verify the output data
@@ -145,15 +131,13 @@ public class CommareaLinkProgram
         // Verify the integer data
         if (data.getInteger() != EXPECTED_INTEGER)
         {
-            this.task.getErr().print("Value (" + data.getInteger() + ") ");
-            this.task.getErr().println("does not match expected value (123)");
+            this.task.getErr().println("Value (" + data.getInteger() + ") does not match expected value (123)");
         }
 
         // Verify the character data
         if (data.getCharacter() != EXPECTED_CHARACTER)
         {
-            this.task.getErr().print("Value (" + data.getCharacter() + ") ");
-            this.task.getErr().println("does not match expected value ('x')");
+            this.task.getErr().println("Value (" + data.getCharacter() + ") does not match expected value ('x')");
         }
 
         // Note: float fields need conversion using jni until there is

@@ -10,17 +10,17 @@ The sample can be built using Apache Maven.
    ```sh
    mvn clean package
    ```
-3. The CICS bundle file will be stored in `cics-java-osgi-link-bundle/targets/cics-java-osgi-link-bundle-1.0.0-SNAPSHOT.zip`.
+3. The CICS bundle file will be stored in `cics-java-osgi-link-bundle/targets/cics-java-osgi-link-bundle-1.0.0.zip`.
 
 ## Deploying
 Ensure the prerequisite library has been installed for the programs DFH$LCCC and DFH$LCCA. (*TODO - instrutctions/link here*).
 
 1. Copy the JVM profile in `config/jvmprofiles/DFHOSGI.jvmprofile` to the JVM profiles directory of the CICS region on z/FS.
-2. Create the JVM server definition OSGIJVMS with the fullowing attributes.
+2. Create the JVM server definition CDEVOSGI with the fullowing attributes.
    ```
-   JVMSERVER(OSGIJVMS) GROUP(CDEVSAMP) JVMPROFILE(DFHOSGI) DESCRIPTION(CICS JVM server to run OSGi samples)
+   JVMSERVER(CDEVOSGI) GROUP(CDEVSAMP) JVMPROFILE(DFHOSGI) DESCRIPTION(CICS JVM server to run OSGi samples)
    ```
-3. Install the JVM server OSGIJVMS.
+3. Install the JVM server CDEVOSGI.
 4. Deploy the CICS bundle to z/FS.
    1. Via CICS explorer "Export to UNIX filesystem".
    2. Via the bundle deploy endpoint (create the bundle definition in step 5 first).

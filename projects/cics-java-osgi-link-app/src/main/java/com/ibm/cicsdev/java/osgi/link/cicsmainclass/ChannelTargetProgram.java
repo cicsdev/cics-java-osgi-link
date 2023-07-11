@@ -1,7 +1,7 @@
 package com.ibm.cicsdev.java.osgi.link.cicsmainclass;
 
-import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.osgi.annotation.bundle.Header;
 
@@ -9,18 +9,11 @@ import com.ibm.cics.server.Channel;
 import com.ibm.cics.server.CicsException;
 import com.ibm.cics.server.Container;
 import com.ibm.cics.server.Task;
+import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 
 /**
  * Demonstrates how an OSGi CICS-MainClass program can be targeted by an EXEC
  * CICS LINK with a channel.
- * <p>
- * All container in the channel are printed.
- * <p>
- * The program checks the contianer {@value #INT_CONTAINER_NAME} expected the
- * value {@value #EXPECTED_INT}.
- * <p>
- * The program checks the contianer {@value #STRING_CONTAINER_NAME} expected the
- * value {@value #EXPECTED_STRING}.
  * 
  * @version 1.0.0
  * @since 1.0.0
@@ -28,14 +21,14 @@ import com.ibm.cics.server.Task;
 @Header(name = "CICS-MainClass", value = "${@class}")
 public class ChannelTargetProgram
 {
-    private static final String INT_CONTAINER_NAME = "IntContainer";
-    private static final int EXPECTED_INT = 654321;
+    /** The name of the container containing integer data */
+    private static final String BIT_CONTAINER_NAME = "BitContainer";
 
-    private static final String STRING_CONTAINER_NAME = "StringContainer";
-    private static final String EXPECTED_STRING = "Hello CICS Program";
-    private static final String OUTPUT_STRING = "Hello caller!";
+    /** The name of the container container string data */
+    private static final String CHAR_CONTAINER_NAME = "CharContainer";
 
-    private static final String RESPONSE_CONTAINER_NAME = "ResponseContainer";
+    /** The response container name */
+    private static final String RESPONSE_CONTAINER_NAME = "Response";
 
     /**
      * Entry point to the CICS program.
@@ -43,40 +36,19 @@ public class ChannelTargetProgram
      * @param args
      *            Not used.
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws CicsException
     {
         Task task = Task.getTask();
 
-        task.getOut().println("Entering ProgramControlClassFour.main()");
-        try
-        {
-            // Get the current channel
-            Channel channel = task.getCurrentChannel();
-            if (channel == null)
-            {
-                task.getErr().println("Transaction invoked without a Channel");
-                return;
-            }
-
-            // Run the business logic
-            ChannelTargetProgram program = new ChannelTargetProgram(task, channel);
-            program.run();
-        }
-        catch (CicsException e)
-        {
-            task.getErr().println("Caught exception: " + e);
-        }
-        finally
-        {
-            task.getOut().println("Leaving ProgramControlClassFour.main()");
-        }
+        // Run the business logic
+        ChannelTargetProgram program = new ChannelTargetProgram(task);
+        program.run();
     }
 
     /** The current CICS task */
     private final Task task;
 
-    /** The channel from the EXEC CICS LINK */
-    private final Channel channel;
+    private final String programName;
 
     /**
      * Creates a new instance of the channel target program.
@@ -87,106 +59,72 @@ public class ChannelTargetProgram
      * 
      * @param task
      *            The current task
-     * @param channel
-     *            The current channel
      */
-    ChannelTargetProgram(Task task, Channel channel)
+    ChannelTargetProgram(Task task)
     {
         this.task = task;
-        this.channel = channel;
+
+        this.programName = task.getProgramName();
     }
 
     /**
-     * Runs the business logic of the program:
+     * Runs the business logic:
      * <ol>
-     * <li>Print all the containers this program was linked to with.</li>
-     * <li>Retrieve the channel
+     * <li>Prints the containers in the current channel</li>
+     * <li>Prints the data in the bit container</li>
+     * <li>Prints the data in the char container</li>
+     * <li>Creates and writes the response container</li>
      * </ol>
      * 
      * @throws CicsException
      */
     public void run() throws CicsException
     {
-        // Print the container names
-        List<String> containerNames = this.channel.getContainerNames();
-        for (String containerName : containerNames)
-        {
-            this.task.getOut().println("ChannelTargetProgram invoked with Container \"" + containerName + "\"");
-        }
+        task.getOut().println();
 
-        boolean isValid = validateData();
+        // Print the containers in the current channel
+        Channel channel = this.task.getCurrentChannel();
+        printContainers(channel);
 
-        // Write the response container
-        writeResponseContainer(isValid);
+        // Print the bit container
+        printBitContainer(channel);
 
-        // Update the string data
-        Container stringData = this.channel.getContainer(STRING_CONTAINER_NAME);
-        stringData.putString(OUTPUT_STRING);
+        // Print the char container
+        printCharContainer(channel);
+
+        // Create and write the response container
+        createResponseContainer(channel);
     }
 
-    private boolean validateData() throws CicsException
+    private void printContainers(Channel channel) throws CicsException
     {
-        boolean isValid = true;
+        List<String> containers = channel.getContainerNames();
 
-        // Validate the integer container
-        int integer = getIntContainerData();
-        if (integer != EXPECTED_INT)
-        {
-            this.task.getErr().println("Value (" + integer + ") does not match expected value (123)");
-            isValid = false;
-        }
+        String containerNamesStr = containers.stream()
+            .map(String::trim)
+            .collect(Collectors.joining(", "));
 
-        // Validate the string container
-        String stringData = getStringContainerData();
-        if (!EXPECTED_STRING.equals(stringData))
-        {
-            this.task.getErr().println("Value (" + stringData + ") does not match expected value (Hello Java World)");
-            isValid = false;
-        }
-
-        return isValid;
+        task.getOut().println(programName + ": Containers: " + containerNamesStr);
     }
 
-    private int getIntContainerData() throws CicsException
+    private void printBitContainer(Channel channel) throws CicsException
     {
-        // Get the container
-        Container intContainer = this.channel.getContainer(INT_CONTAINER_NAME);
-
-        // Validate the container exists
-        if (intContainer == null)
-        {
-            return -1;
-        }
-
-        // Get the integer data
-        byte[] data = intContainer.get();
-        ByteBuffer buffer = ByteBuffer.wrap(data);
-        return buffer.getInt();
+        Container bitContainer = channel.getContainer(BIT_CONTAINER_NAME);
+        ProgramData data = ProgramData.fromBytes(bitContainer.get());
+        task.getOut().println(programName + ": Bit data - int: " + data.getInteger() + ", char: " + data.getCharacter()
+                + ", decimal: " + data.getDecimal());
     }
 
-    private String getStringContainerData() throws CicsException
+    private void printCharContainer(Channel channel) throws CicsException
     {
-        // Get the container
-        Container stringContainer = this.channel.getContainer(STRING_CONTAINER_NAME);
-
-        // Validate the container exists
-        if (stringContainer == null)
-        {
-            return null;
-        }
-
-        // Validate the actual data equals the expected data
-        return stringContainer.getString();
+        Container charContainer = channel.getContainer(CHAR_CONTAINER_NAME);
+        String charData = charContainer.getString();
+        task.getOut().println(programName + ": Char data - " + charData);
     }
 
-    private void writeResponseContainer(boolean isValid) throws CicsException
+    private void createResponseContainer(Channel channel) throws CicsException
     {
-        String responseData = "OK";
-        if (!isValid)
-        {
-            responseData = "INVALID";
-        }
-        Container response = this.channel.createContainer(RESPONSE_CONTAINER_NAME);
-        response.putString(responseData);
+        Container responseContainer = channel.createContainer(RESPONSE_CONTAINER_NAME);
+        responseContainer.putString("OK");
     }
 }

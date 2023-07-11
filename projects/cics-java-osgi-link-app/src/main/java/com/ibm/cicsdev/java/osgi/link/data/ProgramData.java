@@ -33,7 +33,7 @@ public class ProgramData
         char character = str.charAt(0);
         buffer.position(Integer.BYTES + (Character.BYTES * 4));
 
-        float decimal = -1f;
+        float decimal = buffer.getFloat();
 
         return new ProgramData(integer, character, decimal);
     }

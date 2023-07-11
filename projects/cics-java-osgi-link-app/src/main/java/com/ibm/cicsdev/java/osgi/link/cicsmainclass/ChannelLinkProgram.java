@@ -11,6 +11,7 @@ import com.ibm.cics.server.CicsException;
 import com.ibm.cics.server.Container;
 import com.ibm.cics.server.Program;
 import com.ibm.cics.server.Task;
+import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 
 /**
  * Demonstrates how an OSGi CICS-MainClass program can link to a CICS program
@@ -23,13 +24,9 @@ import com.ibm.cics.server.Task;
  * <li>A char container that contains string data -
  * {@value #STRING_CONTAINER_NAME}</li>
  * </ol>
- * The target program, {@value #TARGET_PROGRAM}, is linked to with this channel.
- * This should write the string {@value #RESPONSE_OK} into the container
- * {@value #RESPONSE_CONTAINER_NAME}.
- * <p>
- * Finally, the terminal the program is run on has the next transaction set to
- * {@value #NEXT_TRANSACTION}, which is the transaction that runs the
- * {@link ChannelTargetProgram}.
+ * The target program, {@value #TARGET_PROGRAM}, is linked to with this channel
+ * and runs the class {@link ChannelTargetProgram}. This should write the string
+ * {@value #RESPONSE_OK} into the container {@value #RESPONSE_CONTAINER_NAME}.
  * 
  * @version 1.0.0
  * @since 1.0.0
@@ -42,12 +39,10 @@ public class ChannelLinkProgram
     private static final String CHANNEL_NAME = "CICSDEV";
 
     /** Bit container name */
-    private static final String INT_CONTAINER_NAME = "IntContainer";
-    /** Bit container data */
-    private static final int INT_INPUT = 654321;
+    private static final String INT_CONTAINER_NAME = "BitContainer";
 
     /** Char container name */
-    private static final String STRING_CONTAINER_NAME = "StringContainer";
+    private static final String STRING_CONTAINER_NAME = "CharContainer";
     /** Char container data */
     private static final String STRING_INPUT = "Hello CICS Program";
 
@@ -62,26 +57,14 @@ public class ChannelLinkProgram
      * @param args
      *            Not used.
      */
-    public static void main(String[] args)
+    public static void main(String[] args) throws CicsException
     {
         Task task = Task.getTask();
 
-        task.getOut().println("Entering ProgramControlClassThree.main()");
-        try
-        {
-            Program target = createProgram(TARGET_PROGRAM);
-            ChannelLinkProgram program = new ChannelLinkProgram(task, target);
+        Program target = createProgram(TARGET_PROGRAM);
+        ChannelLinkProgram program = new ChannelLinkProgram(task, target);
 
-            program.run();
-        }
-        catch (CicsException e)
-        {
-            task.getErr().println("Caught exception: " + e);
-        }
-        finally
-        {
-            task.getOut().println("Leaving ProgramControlClassThree.main()");
-        }
+        program.run();
     }
 
     /** The current task */
@@ -133,14 +116,11 @@ public class ChannelLinkProgram
     {
         Channel channel = this.task.createChannel(CHANNEL_NAME);
 
-        // Create the container "IntContainer".
-        createIntegerContainer(channel, INT_INPUT);
-
-        // Create the container "StringContainer".
-        createStringContainer(channel, STRING_INPUT);
+        // Create and populate the containers
+        createBitContainer(channel);
+        createCharContainer(channel);
 
         // Link to the target program with the channel.
-        this.task.getOut().println("About to link to CICS program");
         program.link(channel);
 
         // Get the container "Response" and check the data is "OK".
@@ -149,7 +129,7 @@ public class ChannelLinkProgram
         {
             this.task.getOut().println("Response was not OK");
             return;
-        } 
+        }
     }
 
     /**
@@ -161,14 +141,12 @@ public class ChannelLinkProgram
      * @throws CicsException
      *             If creating the container fails.
      */
-    private void createIntegerContainer(Channel channel, int data) throws CicsException
+    private void createBitContainer(Channel channel) throws CicsException
     {
         Container intContainer = channel.createContainer(INT_CONTAINER_NAME);
+        ProgramData data = new ProgramData(654321, 'y', 2.75f);
 
-        ByteBuffer buffer = ByteBuffer.allocate(Integer.BYTES);
-        buffer.putInt(data);
-
-        intContainer.put(buffer.array());
+        intContainer.put(data.getBytes());
     }
 
     /**
@@ -180,10 +158,10 @@ public class ChannelLinkProgram
      * @throws CicsException
      *             If creating the container fails.
      */
-    private void createStringContainer(Channel channel, String data) throws CicsException
+    private void createCharContainer(Channel channel) throws CicsException
     {
         Container stringContainer = channel.createContainer(STRING_CONTAINER_NAME);
-        stringContainer.putString(data);
+        stringContainer.putString(STRING_INPUT);
     }
 
     /**

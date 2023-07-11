@@ -9,7 +9,7 @@
   <!-- Application properties -->
   <groupId>com.ibm.cicsdev</groupId>
   <artifactId>cics-java-osgi-link</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>CICS OSGi link application</name>
   <description>Demonstrates how OSGi CICS programs link to other programs sending a commarea or
     channel, or are linked to receiving a commarea or channel.</description>
@@ -29,7 +29,7 @@
 
   <properties>
     <!-- CICS bundle properties -->
-    <cics.jvmserver>OSGIJVMS</cics.jvmserver>
+    <cics.jvmserver>CDEVOSGI</cics.jvmserver>
 
     <!-- Dependency versions -->
     <cics.annotation.processor.version>6.1</cics.annotation.processor.version>
@@ -92,7 +92,7 @@
           <version>${cics.bundle.plugin.version}</version>
           <extensions>true</extensions>
           <configuration>
-            <defaultJvmserver>${cics.jvmserver}</defaultJvmserver>
+            <defaultjvmserver>${cics.jvmserver}</defaultjvmserver>
           </configuration>
         </plugin>
 
@@ -116,6 +116,23 @@
               </goals>
             </execution>
           </executions>
+        </plugin>
+
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven.compiler.plugin.version}</version>
+          <configuration>
+            <!-- Enable the CICS Annotation Processor -->
+            <annotationProcessorPaths>
+              <annotationProcessorPath>
+                <groupId>com.ibm.cics</groupId>
+                <artifactId>com.ibm.cics.server.invocation</artifactId>
+                <version>${cics.annotation.processor.version}</version>
+              </annotationProcessorPath>
+            </annotationProcessorPaths>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
