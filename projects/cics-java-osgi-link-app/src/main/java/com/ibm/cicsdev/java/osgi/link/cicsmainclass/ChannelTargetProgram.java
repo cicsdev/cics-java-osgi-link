@@ -48,6 +48,7 @@ public class ChannelTargetProgram
     /** The current CICS task */
     private final Task task;
 
+    /** The current program name */
     private final String programName;
 
     /**
@@ -63,7 +64,6 @@ public class ChannelTargetProgram
     ChannelTargetProgram(Task task)
     {
         this.task = task;
-
         this.programName = task.getProgramName();
     }
 
@@ -96,17 +96,32 @@ public class ChannelTargetProgram
         createResponseContainer(channel);
     }
 
+    /**
+     * Prints the names of all the containers in a channel.
+     * 
+     * @param channel
+     *            The channel the print the channels of.
+     * @throws CicsException
+     *             If getting the channel names fails.
+     */
     private void printContainers(Channel channel) throws CicsException
     {
         List<String> containers = channel.getContainerNames();
 
-        String containerNamesStr = containers.stream()
-            .map(String::trim)
-            .collect(Collectors.joining(", "));
+        String containerNamesStr = containers.stream().map(String::trim).collect(Collectors.joining(", "));
 
         task.getOut().println(programName + ": Containers: " + containerNamesStr);
     }
 
+    /**
+     * Prints the data in the bit container.
+     * 
+     * @param channel
+     *            The channel the container is in.
+     * 
+     * @throws CicsException
+     *             If reading the container fails.
+     */
     private void printBitContainer(Channel channel) throws CicsException
     {
         Container bitContainer = channel.getContainer(BIT_CONTAINER_NAME);
@@ -115,6 +130,15 @@ public class ChannelTargetProgram
                 + ", decimal: " + data.getDecimal());
     }
 
+    /**
+     * Prints the data in the char container.
+     * 
+     * @param channel
+     *            The channel the container is in.
+     * 
+     * @throws CicsException
+     *             If reading the container fails.
+     */
     private void printCharContainer(Channel channel) throws CicsException
     {
         Container charContainer = channel.getContainer(CHAR_CONTAINER_NAME);
@@ -122,6 +146,15 @@ public class ChannelTargetProgram
         task.getOut().println(programName + ": Char data - " + charData);
     }
 
+    /**
+     * Creates the response container and populates it with data.
+     * 
+     * @param channel
+     *            The channel to create the container is in.
+     * 
+     * @throws CicsException
+     *             If reading the container fails.
+     */
     private void createResponseContainer(Channel channel) throws CicsException
     {
         Container responseContainer = channel.createContainer(RESPONSE_CONTAINER_NAME);

@@ -2,8 +2,6 @@ package com.ibm.cicsdev.java.osgi.link.cicsmainclass;
 
 import static com.ibm.cicsdev.java.osgi.link.LinkUtils.createProgram;
 
-import java.nio.ByteBuffer;
-
 import org.osgi.annotation.bundle.Header;
 
 import com.ibm.cics.server.Channel;
@@ -20,9 +18,9 @@ import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
  * The channel is populated with two containers:
  * <ol>
  * <li>A bit container that contains integer data -
- * {@value #INT_CONTAINER_NAME}</li>
+ * {@value #BIT_CONTAINER_NAME}</li>
  * <li>A char container that contains string data -
- * {@value #STRING_CONTAINER_NAME}</li>
+ * {@value #CHAR_CONTAINER_NAME}</li>
  * </ol>
  * The target program, {@value #TARGET_PROGRAM}, is linked to with this channel
  * and runs the class {@link ChannelTargetProgram}. This should write the string
@@ -34,15 +32,17 @@ import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 @Header(name = "CICS-MainClass", value = "${@class}")
 public class ChannelLinkProgram
 {
+    /** The target program to link to */
     private static final String TARGET_PROGRAM = "CDEVMCTC";
 
+    /** The channel name */
     private static final String CHANNEL_NAME = "CICSDEV";
 
     /** Bit container name */
-    private static final String INT_CONTAINER_NAME = "BitContainer";
+    private static final String BIT_CONTAINER_NAME = "BitContainer";
 
     /** Char container name */
-    private static final String STRING_CONTAINER_NAME = "CharContainer";
+    private static final String CHAR_CONTAINER_NAME = "CharContainer";
     /** Char container data */
     private static final String STRING_INPUT = "Hello CICS Program";
 
@@ -96,16 +96,13 @@ public class ChannelLinkProgram
     /**
      * Runs the business logic of the program:
      * <ol>
-     * <li>Create the bit container {@value #INT_CONTAINER_NAME} and populate it
-     * with the data {@value #INT_INPUT}.</li>
-     * <li>Create the char chatainer {@value #STRING_CONTAINER_NAME} and
+     * <li>Create the bit container {@value #BIT_CONTAINER_NAME} and populate it
+     * with data.</li>
+     * <li>Create the char chatainer {@value #CHAR_CONTAINER_NAME} and
      * populate it with the data {@value #STRING_INPUT}.</li>
-     * <li>Link to the target program DFH$LCCC.</li>
+     * <li>Link to the target program {@value #TARGET_PROGRAM}.</li>
      * <li>Get the container {@value #RESPONSE_CONTAINER_NAME} and check the
      * data is {@value #RESPONSE_OK}.</li>
-     * <li>Gets the current CICS terminal</li>
-     * <li>Set the next transaction to {@value #NEXT_TRANSACTION} that runs
-     * {@link ChannelTargetProgram} with the current channel.</li>
      * </ol>
      * 
      * @throws CicsException
@@ -133,34 +130,29 @@ public class ChannelLinkProgram
     }
 
     /**
-     * Creates the container {@value #INT_CONTAINER_NAME} and populates it with
-     * the specified data.
-     * 
-     * @param data
-     *            The data to put into the container.
+     * Creates the container {@value #BIT_CONTAINER_NAME} and populates it with
+     * data.
      * @throws CicsException
      *             If creating the container fails.
      */
     private void createBitContainer(Channel channel) throws CicsException
     {
-        Container intContainer = channel.createContainer(INT_CONTAINER_NAME);
+        Container intContainer = channel.createContainer(BIT_CONTAINER_NAME);
         ProgramData data = new ProgramData(654321, 'y', 2.75f);
 
         intContainer.put(data.getBytes());
     }
 
     /**
-     * Creates the container {@value #STRING_CONTAINER_NAME} and populates it
-     * with the specified data.
+     * Creates the container {@value #CHAR_CONTAINER_NAME} and populates it
+     * with {@value #STRING_INPUT}.
      * 
-     * @param data
-     *            The data to put into the container.
      * @throws CicsException
      *             If creating the container fails.
      */
     private void createCharContainer(Channel channel) throws CicsException
     {
-        Container stringContainer = channel.createContainer(STRING_CONTAINER_NAME);
+        Container stringContainer = channel.createContainer(CHAR_CONTAINER_NAME);
         stringContainer.putString(STRING_INPUT);
     }
 
