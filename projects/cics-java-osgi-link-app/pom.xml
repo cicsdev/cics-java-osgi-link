@@ -19,10 +19,14 @@
             <artifactId>com.ibm.cics.server</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.ibm.cics</groupId>
+            <artifactId>com.ibm.cics.jcicsx</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>osgi.annotation</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -30,6 +34,11 @@
             <plugin>
                 <groupId>biz.aQute.bnd</groupId>
                 <artifactId>bnd-maven-plugin</artifactId>
+                <configuration>
+                    <!-- Note: The @CICSProgram proxies contain EJB annotations for Enterprise Java
+                    programs. This statement marks the EJB package as optional for OSGi resolution. -->
+                    <bnd>Import-Package: javax.ejb;resolution:=optional, *</bnd>
+                </configuration>
             </plugin>
         </plugins>
     </build>

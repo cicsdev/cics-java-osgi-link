@@ -8,9 +8,20 @@ allprojects {
     }
 }
 
-ext.libraries = [
-    cics_bom: 'com.ibm.cics:com.ibm.cics.ts.bom:6.1-20220617120000',
-    osgi_annotations: 'org.osgi:osgi.annotation:8.0.0',
-]
+ext {
+    // Dependecy versions
+    cics_bom_version='6.1-20220617120000'
+    osgi_annotations_version='8.0.0'
+
+    // PLugin versions
+    cics_bundle_plugin_version='1.0.3'
+    bnd_plugin_version='6.3.1'
+
+    // Dependencies
+    libraries = [
+        cics_bom: "com.ibm.cics:com.ibm.cics.ts.bom:${cics_bom_version}",
+        osgi_annotations: "org.osgi:osgi.annotation:${osgi_annotations_version}",
+    ]
+}
 
 description = 'CICS OSGi program control application'

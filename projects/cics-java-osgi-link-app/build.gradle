@@ -1,7 +1,7 @@
 
 plugins {
     id 'java'
-    id "biz.aQute.bnd.builder" version "6.3.1"
+    id "biz.aQute.bnd.builder" version "${bnd_plugin_version}"
 }
 
 dependencies {
@@ -9,6 +9,17 @@ dependencies {
     
     compileOnly enforcedPlatform(libraries.cics_bom)
     compileOnly 'com.ibm.cics:com.ibm.cics.server'
+
+    annotationProcessor enforcedPlatform(libraries.cics_bom)
+    annotationProcessor 'com.ibm.cics:com.ibm.cics.server.invocation'
 }
 
 description = 'CICS OSGi program control application - OSGi bundle'
+
+jar {
+    bundle {
+        // Note: The @CICSProgram proxies contain EJB annotations for Enterprise Java 
+        // programs. This statement marks the EJB package as optional for OSGi resolution.
+        bnd("Import-Package": "javax.ejb;resolution:=optional, *")
+    }
+}

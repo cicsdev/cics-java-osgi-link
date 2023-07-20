@@ -1,7 +1,5 @@
 package com.ibm.cicsdev.java.osgi.link.cicsmainclass;
 
-import static com.ibm.cicsdev.java.osgi.link.LinkUtils.createProgram;
-
 import org.osgi.annotation.bundle.Header;
 
 import com.ibm.cics.server.CicsException;
@@ -51,7 +49,8 @@ public class CommareaLinkProgram
     public static void main(String[] args) throws CicsException
     {
         Task task = Task.getTask();
-        CommareaLinkProgram program = new CommareaLinkProgram(task, createProgram(TARGET_PROGRAM));
+        Program target = new Program(TARGET_PROGRAM);
+        CommareaLinkProgram program = new CommareaLinkProgram(task, target);
 
         program.run();
     }

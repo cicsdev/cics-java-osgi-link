@@ -1,6 +1,8 @@
 /**
  * This package contains objects which encapsulate data being passed between
  * programs.
+ * 
+ * @version 1.0.0
  */
 @Export
 @Version("1.0.0")

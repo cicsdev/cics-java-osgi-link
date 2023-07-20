@@ -4,4 +4,4 @@
 
 rootProject.name = 'cics-java-osgi-link'
 include(':cics-java-osgi-link-bundle')
-include(':cics-java-osgi-link')
+include(':cics-java-osgi-link-app')

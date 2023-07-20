@@ -16,6 +16,7 @@
   <url>https://github.com/cicsdev/cics-java-osgi-link</url>
   <developers>
     <developer>
+      <id>ibm</id>
       <name>IBM</name>
       <url>https://www.ibm.com/products/cics-transaction-server</url>
     </developer>
@@ -35,8 +36,6 @@
     <cics.annotation.processor.version>6.1</cics.annotation.processor.version>
     <cics.bom.version>6.1-20220617120000</cics.bom.version>
     <osgi.version>8.0.0</osgi.version>
-    <osgi.scr.version>1.5.0</osgi.scr.version>
-    <osgi.log.version>1.5.0</osgi.log.version>
 
     <!-- Plugin versions -->
     <bnd.plugin.version>6.3.1</bnd.plugin.version>
@@ -62,16 +61,6 @@
         <groupId>org.osgi</groupId>
         <artifactId>osgi.annotation</artifactId>
         <version>${osgi.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.osgi</groupId>
-        <artifactId>org.osgi.service.component.annotations</artifactId>
-        <version>${osgi.scr.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.osgi</groupId>
-        <artifactId>org.osgi.service.log</artifactId>
-        <version>${osgi.log.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -118,7 +107,7 @@
           </executions>
         </plugin>
 
-
+        <!-- Java compiler with the CICS annotation processor -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>

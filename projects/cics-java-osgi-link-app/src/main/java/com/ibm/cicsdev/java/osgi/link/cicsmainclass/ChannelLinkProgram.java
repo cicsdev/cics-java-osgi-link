@@ -1,7 +1,5 @@
 package com.ibm.cicsdev.java.osgi.link.cicsmainclass;
 
-import static com.ibm.cicsdev.java.osgi.link.LinkUtils.createProgram;
-
 import org.osgi.annotation.bundle.Header;
 
 import com.ibm.cics.server.Channel;
@@ -61,7 +59,7 @@ public class ChannelLinkProgram
     {
         Task task = Task.getTask();
 
-        Program target = createProgram(TARGET_PROGRAM);
+        Program target = new Program(TARGET_PROGRAM);
         ChannelLinkProgram program = new ChannelLinkProgram(task, target);
 
         program.run();
