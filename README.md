@@ -16,11 +16,11 @@ The sample can be built using Apache Maven.
 Ensure the prerequisite library has been installed for the programs DFH$LCCC and DFH$LCCA. (*TODO - instrutctions/link here*).
 
 1. Copy the JVM profile in `etc/jvmprofiles/DFHOSGI.jvmprofile` to the JVM profiles directory of the CICS region on z/FS.
-2. Create the JVM server definition CDEVOSGI with the fullowing attributes.
+2. Create the JVM server definition DFHOSGI with the fullowing attributes.
    ```
-   JVMSERVER(CDEVOSGI) GROUP(CDEVSAMP) JVMPROFILE(DFHOSGI) DESCRIPTION(CICS JVM server to run OSGi samples)
+   JVMSERVER(DFHOSGI) GROUP(CDEVSAMP) JVMPROFILE(DFHOSGI) DESCRIPTION(CICS JVM server to run OSGi samples)
    ```
-3. Install the JVM server CDEVOSGI.
+3. Install the JVM server DFHOSGI.
 4. Deploy the CICS bundle to z/FS.
    1. Via CICS explorer "Export to UNIX filesystem".
    2. Via the bundle deploy endpoint (create the bundle definition in step 5 first).

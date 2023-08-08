@@ -30,7 +30,7 @@
 
   <properties>
     <!-- CICS bundle properties -->
-    <cics.jvmserver>CDEVOSGI</cics.jvmserver>
+    <cics.jvmserver>DFHOSGI</cics.jvmserver>
 
     <!-- Dependency versions -->
     <cics.annotation.processor.version>6.1</cics.annotation.processor.version>
@@ -44,8 +44,8 @@
 
     <!-- Java project properties -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
   </properties>
 
   <dependencyManagement>

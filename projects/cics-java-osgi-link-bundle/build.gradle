@@ -8,7 +8,7 @@ dependencies {
 
 cicsBundle {
     build {
-        defaultJVMServer = "CDEVOSGI"
+        defaultJVMServer = "DFHOSGI"
     }
 }
 
