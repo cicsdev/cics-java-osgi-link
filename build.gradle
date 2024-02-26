@@ -1,0 +1,11 @@
+
+allprojects {
+    group = 'com.ibm.cicsdev'
+    version = '1.0.0'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+description = 'CICS OSGi program control application'

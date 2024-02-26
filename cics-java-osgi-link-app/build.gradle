@@ -1,0 +1,17 @@
+
+plugins {
+    id 'java'
+}
+
+dependencies {
+    compileOnly enforcedPlatform("com.ibm.cics:com.ibm.cics.ts.bom:5.5-20200519131930-PH25409")
+    compileOnly 'com.ibm.cics:com.ibm.cics.server'
+
+    annotationProcessor enforcedPlatform("com.ibm.cics:com.ibm.cics.ts.bom:5.5-20200519131930-PH25409")
+    annotationProcessor 'com.ibm.cics:com.ibm.cics.server.invocation'
+}
+
+description = 'CICS OSGi program control application - OSGi bundle'
+
+jar {
+}

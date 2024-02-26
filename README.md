@@ -5,12 +5,11 @@ Demonstrates how OSGi CICS programs link to other programs sending a commarea or
 The sample can be built using Apache Maven.
 
 ### Building with Apache Maven
-1. Change into the `projects/` directory.
-2. Run the following command.
+1. Run the following command.
    ```sh
    mvn clean package
    ```
-3. The CICS bundle file will be stored in `cics-java-osgi-link-bundle/targets/cics-java-osgi-link-bundle-1.0.0.zip`.
+2. The CICS bundle file will be stored in `cics-java-osgi-link-bundle/targets/cics-java-osgi-link-bundle-1.0.0.zip`.
 
 ## Deploying
 Ensure the prerequisite library has been installed for the programs DFH$LCCC and DFH$LCCA. (*TODO - instrutctions/link here*).
