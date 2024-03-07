@@ -34,4 +34,7 @@ Ensure the prerequisite library has been installed for the programs DFH$LCCC and
 ## Running
 
 * To run the channel link example, run the `JPC3` transaction.
-* To run the commarea link example, run the `JPC1` transaction.
+* To run the commarea link 
+
+## License
+This project is licensed under [Eclipse Public License - v 2.0](LICENSE).
