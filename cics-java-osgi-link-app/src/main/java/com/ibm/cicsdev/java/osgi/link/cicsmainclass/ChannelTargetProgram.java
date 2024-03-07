@@ -107,13 +107,13 @@ public class ChannelTargetProgram
     {
         ContainerIterator iterator = channel.containerIterator();
         task.out.print(programName + ": Containers: ");
-        while(iterator.hasNext())
+        while (iterator.hasNext())
         {
             Container container = iterator.next();
             String containerName = container.getName();
             task.out.print(containerName);
 
-            if(iterator.hasNext())
+            if (iterator.hasNext())
             {
                 task.out.print(", ");
             }
