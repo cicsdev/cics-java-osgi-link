@@ -1,5 +1,6 @@
-# CICS OSGi Program Control and Link
-TODO
+# CICS OSGi program control application
+
+Demonstrates how OSGi CICS programs link to other programs sending a commarea or channel, or are linked to receiving a commarea or channel.
 
 ## Versions
 | CICS TS for z/OS Version | Branch                                 | Minimum Java Version | Enterprise Java version | Build Status |
