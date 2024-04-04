@@ -1,5 +1,5 @@
-# CICS OSGi program control application
-Demonstrates how OSGi CICS programs link to other programs sending a commarea or channel, or are linked to receiving a commarea or channel.
+# CICS OSGi Program LINK sample application
+Demonstrates how OSGi CICS programs link to other CICS programs sending a COMMAREA or channel, or are linked to receiving a COMMAREA or channel.
 
 ## Building
 The sample can be built using Apache Maven.
