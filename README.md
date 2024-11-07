@@ -1,4 +1,5 @@
 # CICS OSGi Program LINK sample application
+
 Demonstrates how OSGi CICS programs link to other CICS programs sending a COMMAREA or channel, or are linked to receiving a COMMAREA or channel.
 
 ## Building

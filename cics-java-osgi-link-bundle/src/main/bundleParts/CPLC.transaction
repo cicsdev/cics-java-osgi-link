@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Note: the CDEVCPCL program is automatically defined with the ChannelLinkCICSProgram is installed
+into a JVM server.
+-->
+<cicsdefinitiontransaction name="CPLC" program="CDEVCPCL"
+    description="Runs the CICSProgram program that links with a channel" />
