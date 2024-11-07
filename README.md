@@ -27,15 +27,15 @@ Ensure the prerequisite library has been installed for the programs DFH$LCCC and
    3. Via FTP to z/FS, and extract the ZIP file.
 5. Create a bundle definition CDEVJPC with the following attributes.
    ```
-   BUNDLE(CDEVJPC) GROUP(CDEVSAMP) BUNDLEDIR(/path/to/deployed/bundle/)
+   BUNDLE(CDEVCJOL) GROUP(CDEVSAMP) BUNDLEDIR(/path/to/deployed/bundle/)
    ```
-6. Install the bundle CDEVJPC.
+6. Install the bundle CDEVCJOL.
 
 
 ## Running
-
-* To run the channel link example, run the `JPC3` transaction.
-* To run the commarea link 
+There are several type of link this sample demostrates.
+* To run the channel link example, run the `MCLC` transaction. This runs the `CDEVMCLC` program, which links to the `CDEVMCTC` with channels and containers.
+* To run the commarea link example, run the `MCLM` transaction. This runs the `CDEVMCLM` program, which links to the `CDEVMCTM` with a commarea.
 
 ## License
 This project is licensed under [Eclipse Public License - v 2.0](LICENSE).
