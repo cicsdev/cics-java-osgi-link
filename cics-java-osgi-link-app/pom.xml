@@ -9,8 +9,6 @@
         <version>1.0.0</version>
     </parent>
 
-    
-
     <artifactId>cics-java-osgi-link-app</artifactId>
     <packaging>jar</packaging>
     <name>CICS OSGi link application - Application</name>
