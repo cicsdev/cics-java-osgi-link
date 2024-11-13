@@ -33,9 +33,9 @@ Ensure the prerequisite library has been installed for the programs DFH$LCCC and
 
 
 ## Running
-There are several type of link this sample demostrates.
-* To run the channel link example, run the `MCLC` transaction. This runs the `CDEVMCLC` program, which links to the `CDEVMCTC` with channels and containers.
-* To run the commarea link example, run the `MCLM` transaction. This runs the `CDEVMCLM` program, which links to the `CDEVMCTM` with a commarea.
+There are two types of link this sample demonstrates.
+* To run the channel link example, run the `MCLC` transaction. This runs the `CDEVMCLC` program, which links to the `CDEVMCTC` program with channels and containers.
+* To run the COMMAREA link example, run the `MCLM` transaction. This runs the `CDEVMCLM` program, which links to the `CDEVMCTM` program with a COMMAREA.
 
 ## License
 This project is licensed under [Eclipse Public License - v 2.0](LICENSE).
