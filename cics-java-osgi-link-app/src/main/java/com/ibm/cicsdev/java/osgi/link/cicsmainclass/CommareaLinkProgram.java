@@ -7,14 +7,14 @@ import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 
 /**
  * Demonstrates how an OSGi CICS-MainClass program can link to a CICS program
- * with a commarea.
+ * with a COMMAREA.
  * <p>
- * The commarea is populated with data in set fields. The first field is an
+ * The COMMAREA is populated with data in set fields. The first field is an
  * integer, the second field contains 4 characters, and the third field contains
  * a float.
  * <p>
  * The target program, {@value #TARGET_PROGRAM}, is linked to with this
- * commarea. This should update the data in the commarea. The integer field is
+ * COMMAREA. This should update the data in the COMMAREA. The integer field is
  * set to a new value and the first character in the second field is modified.
  * 
  * @version 1.0.0
@@ -62,7 +62,7 @@ public class CommareaLinkProgram
     private final Program program;
 
     /**
-     * Creates a new instance of the commarea link program.
+     * Creates a new instance of the COMMAREA link program.
      * <p>
      * A new instance must be created per link request as JCICS object cannot be
      * shared across threads. For more information, see
@@ -82,10 +82,10 @@ public class CommareaLinkProgram
     /**
      * Runs the business logic of the program:
      * <ol>
-     * <li>Creates the commarea data and populates it with the integer,
+     * <li>Creates the COMMAREA data and populates it with the integer,
      * character, and decimal data.</li>
      * <li>Link to the target program {@value #TARGET_PROGRAM}.</li>
-     * <li>Validates the data that was updated in the commarea.</li>
+     * <li>Validates the data that was updated in the COMMAREA.</li>
      * <li>Gets the current CICS terminal</li>
      * <li>Set the next transaction to {@value #NEXT_TRANSACTION} that runs
      * {@link CommareaTargetProgram} with the current channel.</li>
@@ -109,7 +109,7 @@ public class CommareaLinkProgram
     }
 
     /**
-     * @return The generated commarea data.
+     * @return The generated COMMAREA data.
      */
     private byte[] generateCommareaData()
     {
@@ -121,25 +121,20 @@ public class CommareaLinkProgram
      * Verifies the data return from the target program was correct.
      * 
      * @param data
-     *            The output data from the commarea.
+     *            The output data from the COMMAREA.
      */
     private void verifyOutputData(ProgramData data)
     {
         // Verify the integer data
         if (data.getInteger() != EXPECTED_INTEGER)
         {
-            this.task.err.println("Value (" + data.getInteger() + ") does not match expected value (123)");
+            this.task.getErr().println("Value (" + data.getInteger() + ") does not match expected value (123)");
         }
 
         // Verify the character data
         if (data.getCharacter() != EXPECTED_CHARACTER)
         {
-            this.task.err.println("Value (" + data.getCharacter() + ") does not match expected value ('x')");
+            this.task.getErr().println("Value (" + data.getCharacter() + ") does not match expected value ('x')");
         }
-
-        // Note: float fields need conversion using jni until there is
-        // C/390 compiler support for IEEE 754 floating point. This field
-        // will not be interpreted correctly by C code using S/390 h/w
-        // floating point and is therefore not checked by this sample.
     }
 }

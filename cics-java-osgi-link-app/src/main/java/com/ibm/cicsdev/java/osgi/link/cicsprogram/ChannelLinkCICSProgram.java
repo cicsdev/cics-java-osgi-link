@@ -6,7 +6,6 @@ import com.ibm.cics.server.Container;
 import com.ibm.cics.server.Program;
 import com.ibm.cics.server.Task;
 import com.ibm.cics.server.invocation.CICSProgram;
-import com.ibm.cicsdev.java.osgi.link.cicsmainclass.ChannelTargetProgram;
 import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 
 /**
@@ -32,7 +31,7 @@ public class ChannelLinkCICSProgram
 {
 
     /** The name of this program */
-    private static final String PROGRAM_NAME = "CDEVCPCL";
+    private static final String PROGRAM_NAME = "CDEVMCLC";
 
     /** The name of the target program */
     private static final String TARGET_PROGRAM = ChannelTargetCICSProgram.PROGRAM_NAME;
@@ -68,10 +67,8 @@ public class ChannelLinkCICSProgram
      */
     public ChannelLinkCICSProgram()
     {
-        this.task = Task.getTask();
-        
-        this.program = new Program();
-        this.program.setName(TARGET_PROGRAM);
+        this.task = Task.getTask();        
+        this.program = new Program(TARGET_PROGRAM);        
     }
 
     /**
@@ -99,7 +96,7 @@ public class ChannelLinkCICSProgram
         // Link to the target program
         this.program.link(channel);
 
-        // Create the response from the program
+        // Get the response from the linked program and abend task if not OK
         Container responseContainer = channel.getContainer(RESPONSE_CONTAINER_NAME);
         String response = responseContainer.getString();
         if (!RESPONSE_OK.equals(response))
@@ -109,7 +106,7 @@ public class ChannelLinkCICSProgram
     }
 
     /**
-     * Creates the bit container and populates it with program data.
+     * Creates the bit container and populates it with binary data.
      * 
      * @param channel
      *            The channel to create the container in.

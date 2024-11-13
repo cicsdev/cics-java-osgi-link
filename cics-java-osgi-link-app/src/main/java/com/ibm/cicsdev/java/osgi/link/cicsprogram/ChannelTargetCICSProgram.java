@@ -61,6 +61,7 @@ public class ChannelTargetCICSProgram
      */
     private void printContainers(Channel channel) throws CicsException
     {
+        //At V6.1 ContainerIterator is deprecated so getContainerNames() used to list all containers in a channel
         List<String> containers = channel.getContainerNames();
 
         String containerNamesStr = containers.stream().map(String::trim).collect(Collectors.joining(", "));

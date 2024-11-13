@@ -6,9 +6,9 @@ import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 
 /**
  * Demonstrates how an OSGi CICS-MainClass program can be targeted by an link
- * with a commarea.
+ * with a COMMAREA.
  * <p>
- * The commarea is populated with data in set fields. The first field is an
+ * The COMMAREA is populated with data in set fields. The first field is an
  * integer, the second field contains 4 characters, and the third field contains
  * a float.
  */
@@ -18,7 +18,7 @@ public class CommareaTargetProgram
      * Entry point to the CICS program.
      * 
      * @param commarea
-     *            The input commarea.
+     *            The input COMMAREA.
      */
     public static void main(CommAreaHolder commarea)
     {
@@ -33,14 +33,14 @@ public class CommareaTargetProgram
 
         ProgramData returnData = program.run();
 
-        // Update the commarea value
+        // Update the COMMAREA value
         commarea.setValue(returnData.getBytes());
     }
 
     /**
      * @param commarea
-     *            The commarea to check.
-     * @return <code>true</code> if the commarea is empty.
+     *            The COMMAREA to check.
+     * @return <code>true</code> if the COMMAREA is empty.
      */
     private static boolean isCommareaEmpty(CommAreaHolder commarea)
     {
@@ -50,11 +50,11 @@ public class CommareaTargetProgram
     /** The current task */
     private final Task task;
 
-    /** The input commarea */
+    /** The input COMMAREA */
     private final byte[] commarea;
 
     /**
-     * Creates a new instance of the commarea target program.
+     * Creates a new instance of the COMMAREA target program.
      * <p>
      * A new instance must be created per link request as JCICS object cannot be
      * shared across threads. For more information, see
@@ -75,11 +75,11 @@ public class CommareaTargetProgram
      * Runs the business logic.
      * 
      * <ol>
-     * <li>Prints the commarea data</li>
-     * <li>Returns data to be updated in the commarea</li>
+     * <li>Prints the COMMAREA data</li>
+     * <li>Returns data to be updated in the COMMAREA</li>
      * </ol>
      * 
-     * @return The data to be updated in the commarea.
+     * @return The data to be updated in the COMMAREA.
      */
     public ProgramData run()
     {
@@ -92,7 +92,7 @@ public class CommareaTargetProgram
     }
 
     /**
-     * Prints the commarea data.
+     * Prints the COMMAREA data.
      * 
      * @param data
      *            The program data.
@@ -103,8 +103,8 @@ public class CommareaTargetProgram
         char charData = data.getCharacter();
         float decimal = data.getDecimal();
 
-        this.task.out.println();
-        this.task.out.println(this.task.getProgramName() + ": Commarea - int: " + intData + ", char: " + charData
+        this.task.getOut().println();
+        this.task.getOut().println(this.task.getProgramName() + ": Commarea - int: " + intData + ", char: " + charData
                 + ", decimal: " + decimal);
     }
 }
