@@ -16,7 +16,7 @@ import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
  */
 public class ChannelTargetCICSProgram
 {
-    static final String PROGRAM_NAME = "CDEVCPCT";
+    static final String PROGRAM_NAME = "CDEVMCTC";
     private static final String BIT_CONTAINER_NAME = "BitContainer";
     private static final String CHAR_CONTAINER_NAME = "CharContainer";
     private static final String RESPONSE_CONTAINER_NAME = "Response";
