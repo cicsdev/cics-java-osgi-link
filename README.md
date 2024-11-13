@@ -1,35 +1,58 @@
 # CICS OSGi Program LINK sample application
 
-Demonstrates how OSGi CICS programs link to other CICS programs sending a COMMAREA or channel, or are linked to receiving a COMMAREA or channel.
+Demonstrates how OSGi CICS Java programs link to other CICS programs sending a COMMAREA or channel, or are linked to receiving a COMMAREA or channel.
 
 ## Building
-The sample can be built using Apache Maven.
+The sample can be built using the supplied Gradle or Maven build files to produce an OSGi bundle JAR file and optionally a CICS Bundle archive.
+
+### Gradle (command line)
+
+1. Run the following in a local command prompt:
+
+```sh
+gradle clean build
+```
+
+This creates a CICS bundle folder in `cics-java-osgi-link-app/build/libs` directory and a CICS bundle ZIP file inside the `cics-java-osgi-link-app/build/distributions` directory.
+
+2. If using the CICS bundle ZIP, the CICS JVM server name for the OSGi bundle part should be modified in the `cics.jvmserver` property in the gradle build properties file to match the required CICS JVMSERVER resource name, or alternatively can be set on the command line as follows.
+
+```sh
+gradle clean build -Pjvmserver=MYJVM
+```
 
 ### Building with Apache Maven
-1. Run the following command.
-   ```sh
-   mvn clean package
-   ```
-2. The CICS bundle file will be stored in `cics-java-osgi-link-bundle/targets/cics-java-osgi-link-bundle-1.0.0.zip`.
+1.Run the following in a local command prompt which will create a JAR file for deployment.
 
-## Deploying
-Ensure the prerequisite library has been installed for the programs DFH$LCCC and DFH$LCCA. (*TODO - instrutctions/link here*).
+```sh
+mvn clean verify
+```
 
-1. Copy the JVM profile in `etc/jvmprofiles/DFHOSGI.jvmprofile` to the JVM profiles directory of the CICS region on z/FS.
-2. Create the JVM server definition DFHOSGI with the fullowing attributes.
-   ```
-   JVMSERVER(DFHOSGI) GROUP(CDEVSAMP) JVMPROFILE(DFHOSGI) DESCRIPTION(CICS JVM server to run OSGi samples)
-   ```
-3. Install the JVM server DFHOSGI.
-4. Deploy the CICS bundle to z/FS.
+This creates a CICS bundle folder in the target directory.
+
+2. If building a CICS bundle ZIP the CICS bundle plugin is driven using the maven verify phase. The CICS JVM server name for the OSGi bundle part should be modified in the `cics.jvmserver` property in the pom.xml to match the required CICS JVMSERVER resource name, or alternatively can be set on the command line as follows.
+
+```sh
+mvn clean verify -Dcics.jvmserver=MYJVM
+```
+
+The CICS bundle file will be stored in `cics-java-osgi-link-bundle/target/cics-java-osgi-link-bundle-1.0.0.zip`.
+
+## Deploying to CICS
+
+
+
+1. CICS resource definitions for the bundle, programs, transactions and a JVM server are supplied in a group CDEVSAMP as a DFHCSDUP sample input stream supplied in [`DFHCSD.txt`](etc/DFHCSD.txt). Alternatively they can be installed using the bundle parts supplied with the cics-java-osgi-link-bundle project.
+Note that the resource definitions for the CICS programs `CDEVMCLC` and `CDEVMCTC` for the Channel sample are not supplied as they will be autoinstalled by the processing of @CICSProgram annotation.
+
+1. First deploy the CICS bundle project to z/FS.
    1. Via CICS explorer "Export to UNIX filesystem".
    2. Via the bundle deploy endpoint (create the bundle definition in step 5 first).
    3. Via FTP to z/FS, and extract the ZIP file.
-5. Create a bundle definition CDEVJPC with the following attributes.
-   ```
-   BUNDLE(CDEVCJOL) GROUP(CDEVSAMP) BUNDLEDIR(/path/to/deployed/bundle/)
-   ```
-6. Install the bundle CDEVCJOL.
+
+1. Update the BUNDLEDIR attribute on the BUNDLE resource to match the zFS location of the deployed CICS bundle project. 
+
+1. Install the group CDEVSAMP 
 
 
 ## Running
