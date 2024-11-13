@@ -11,8 +11,8 @@
   <artifactId>cics-java-osgi-link</artifactId>
   <version>1.0.0</version>
   <name>CICS OSGi link application</name>
-  <description>Demonstrates how OSGi CICS programs link to other programs sending a commarea or
-    channel, or are linked to receiving a commarea or channel.</description>
+  <description>Demonstrates how OSGi CICS Java programs link to other programs sending a COMMAREA or
+    channel, or are linked to receiving a COMMAREA or channel.</description>
   <url>https://github.com/cicsdev/cics-java-osgi-link</url>
   <developers>
     <developer>
