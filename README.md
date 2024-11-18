@@ -40,8 +40,6 @@ The CICS bundle file will be stored in `cics-java-osgi-link-bundle/target/cics-j
 
 ## Deploying to CICS
 
-
-
 1. CICS resource definitions for the bundle, programs, transactions and a JVM server are supplied in a group CDEVSAMP as a DFHCSDUP sample input stream supplied in [`DFHCSD.txt`](etc/DFHCSD.txt). Alternatively they can be installed using the bundle parts supplied with the cics-java-osgi-link-bundle project.
 Note that the resource definitions for the CICS programs `CDEVMCLC` and `CDEVMCTC` for the Channel sample are not supplied as they will be autoinstalled by the processing of @CICSProgram annotation.
 
@@ -52,7 +50,7 @@ Note that the resource definitions for the CICS programs `CDEVMCLC` and `CDEVMCT
 
 1. Update the BUNDLEDIR attribute on the BUNDLE resource to match the zFS location of the deployed CICS bundle project. 
 
-1. Install the group CDEVSAMP 
+1. Install the sample group CDEVCJOL 
 
 
 ## Running
