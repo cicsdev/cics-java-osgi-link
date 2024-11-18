@@ -1,19 +1,25 @@
 package com.ibm.cicsdev.java.osgi.link.cicsmainclass;
 
+import java.nio.charset.Charset;
 import com.ibm.cics.server.CommAreaHolder;
 import com.ibm.cics.server.Task;
-import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 
 /**
  * Demonstrates how an OSGi CICS-MainClass program can be targeted by an link
  * with a COMMAREA.
  * <p>
- * The COMMAREA is populated with data in set fields. The first field is an
- * integer, the second field contains 4 characters, and the third field contains
- * a float.
+ * The COMMAREA is populated with character data as a byte array
  */
 public class CommareaTargetProgram
 {
+
+    
+     /** The local CICS CCSID as a Java charset. */
+     private static final Charset LOCAL_CCSID = Charset.forName(System.getProperty("com.ibm.cics.jvmserver.local.ccsid"));
+    
+    /** The return COMMAREA data */
+    private static final String RETURN_DATA = "SCIC EVOL I";
+
     /**
      * Entry point to the CICS program.
      * 
@@ -22,19 +28,25 @@ public class CommareaTargetProgram
      */
     public static void main(CommAreaHolder commarea)
     {
+     
+        // Instance of CICS task
         Task task = Task.getTask();
-
+        
+        // Check if the commarea holder passed in is populated
         if (isCommareaEmpty(commarea))
         {
             throw new IllegalArgumentException("Commarea is empty.");
         }
 
-        CommareaTargetProgram program = new CommareaTargetProgram(task, commarea.getValue());
+        // Instantiate CommareaTargetProgram
+        CommareaTargetProgram program = new CommareaTargetProgram(task, commarea.getValue());        
+        
+        // run the business logic to print the input, and build the return data
+        byte[] returnData = program.run();
 
-        ProgramData returnData = program.run();
+        // Update the CICS COMMAREA value for return to caller
+        commarea.setValue(returnData);
 
-        // Update the COMMAREA value
-        commarea.setValue(returnData.getBytes());
     }
 
     /**
@@ -81,14 +93,13 @@ public class CommareaTargetProgram
      * 
      * @return The data to be updated in the COMMAREA.
      */
-    public ProgramData run()
+    public byte[] run()
     {
         // Print the input commarea data
-        ProgramData data = ProgramData.fromBytes(this.commarea);
-        printCommareaData(data);
+        printCommareaData(this.commarea);
 
-        // Create the new data
-        return new ProgramData(123, 'x', 3.14f);
+        // Build the return data as byte array using the local CICS encoding
+        return RETURN_DATA.getBytes(LOCAL_CCSID);
     }
 
     /**
@@ -97,14 +108,10 @@ public class CommareaTargetProgram
      * @param data
      *            The program data.
      */
-    private void printCommareaData(ProgramData data)
+    private void printCommareaData(byte[] data)
     {
-        int intData = data.getInteger();
-        char charData = data.getCharacter();
-        float decimal = data.getDecimal();
-
+        String strCommarea = new String(data, LOCAL_CCSID);
         this.task.getOut().println();
-        this.task.getOut().println(this.task.getProgramName() + ": Commarea - int: " + intData + ", char: " + charData
-                + ", decimal: " + decimal);
+        this.task.getOut().println(this.task.getProgramName() + ": COMMAREA input: " + strCommarea);
     }
 }

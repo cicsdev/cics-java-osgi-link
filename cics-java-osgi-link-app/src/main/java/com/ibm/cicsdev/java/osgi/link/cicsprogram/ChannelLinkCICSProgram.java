@@ -1,12 +1,13 @@
 package com.ibm.cicsdev.java.osgi.link.cicsprogram;
 
+import java.nio.ByteBuffer;
+
 import com.ibm.cics.server.Channel;
 import com.ibm.cics.server.CicsException;
 import com.ibm.cics.server.Container;
 import com.ibm.cics.server.Program;
 import com.ibm.cics.server.Task;
 import com.ibm.cics.server.invocation.CICSProgram;
-import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 
 /**
  * Demonstrates how an OSGi {@link CICSProgram} defined program can link to a
@@ -40,15 +41,20 @@ public class ChannelLinkCICSProgram
     private static final String CHANNEL_NAME = "CICSDEV";
 
     /** Bit container name */
-    private static final String BIT_CONTAINER_NAME = "BitContainer";
+    private static final String BIT_CONTAINER_NAME = "BIT_CONT";
 
     /** Char container name */
-    private static final String CHAR_CONTAINER_NAME = "CharContainer";
+    private static final String CHAR_CONTAINER_NAME = "CHAR_CONT";
+
     /** Char container data */
-    private static final String STRING_INPUT = "Hello CICS Program";
+    private static final String STRING_INPUT = "Hello from CICS Program";
+
+    /** binary container data */
+    private static final int INT_INPUT = 123456;
 
     /** Response container name */
-    private static final String RESPONSE_CONTAINER_NAME = "Response";
+    private static final String RESPONSE_CONTAINER_NAME = "RESPONSE_CONT"; 
+    
     /** Expected data in response container */
     private static final String RESPONSE_OK = "OK";
 
@@ -61,7 +67,7 @@ public class ChannelLinkCICSProgram
     /**
      * Creates a new instance of the channel link program.
      * <p>
-     * A new instance must be created per link request as JCICS object cannot be
+     * A new instance must be created per link request as JCICS objects cannot be
      * shared across threads. For more information, see
      * {@link com.ibm.cics.server.API}.
      */
@@ -96,9 +102,10 @@ public class ChannelLinkCICSProgram
         // Link to the target program
         this.program.link(channel);
 
-        // Get the response from the linked program and abend task if not OK
+        // Get the response from the linked program
         Container responseContainer = channel.getContainer(RESPONSE_CONTAINER_NAME);
         String response = responseContainer.getString();
+        // Abend the task with no dump if response not OK
         if (!RESPONSE_OK.equals(response))
         {
             task.abend("INVD", false);
@@ -115,10 +122,14 @@ public class ChannelLinkCICSProgram
      */
     private void createBitContainer(Channel channel) throws CicsException
     {
-        ProgramData data = new ProgramData(654321, 'y', 2.75f);
+        int bufferSize = Integer.BYTES;
+        ByteBuffer buffer = ByteBuffer.allocate(bufferSize);
+
+        // Write the int data to the byte buffer
+        buffer.putInt(INT_INPUT);
 
         Container bitContainer = channel.createContainer(BIT_CONTAINER_NAME);
-        bitContainer.put(data.getBytes());
+        bitContainer.put(buffer.array());
     }
 
     /**
