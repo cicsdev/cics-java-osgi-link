@@ -2,6 +2,24 @@
 
 Demonstrates how OSGi CICS Java programs link to other CICS programs sending a COMMAREA or channel, or are linked to receiving a COMMAREA or channel.
 
+
+
+## Samples overview
+### com.ibm.cicsdev.java.osgi.link.cicsmainclass
+* [`CommareaLinkProgram.java`](cics-java-osgi-link-app\src\main\java\com\ibm\cicsdev\java\osgi\link\cicsmainclass\CommareaLinkProgram.java) - OSGi CICS-MainClass program that issues a link
+* [`CommareaTargetProgram.java`](cics-java-osgi-link-app\src\main\java\com\ibm\cicsdev\java\osgi\link\cicsmainclass\CommareaTargetProgram.java) - OSGi CICS-MainClass program that receives a link
+
+### com.ibm.cicsdev.java.osgi.link.cicsprogram
+* [`ChannelLinkCICSProgram.java`](cics-java-osgi-link-app\src\main\java\com\ibm\cicsdev\java\osgi\link\cicsprogram\ChannelLinkCICSProgram.java) - OSGi {@link CICSProgram} defined program that issues a link
+* [`ChannelLinkCICSProgram.java`](cics-java-osgi-link-app\src\main\java\com\ibm\cicsdev\java\osgi\link\cicsprogram\ChannelLinkCICSProgram.java) - OSGi {@link CICSProgram} defined program linked to with a channel
+
+
+## Repository structure
+* [`cics-java-osgi-link-app/`](cics-java-osgi-link-app) - Java application source
+* [`cics-java-osgi-link-bundle/`](cics-java-osgi-link-bundle/) - Build files for CICS bundle project
+* [`etc/`](etc) - Supporting materials 
+
+
 ## Building
 The sample can be built using the supplied Gradle or Maven build files to produce an OSGi bundle JAR file and optionally a CICS Bundle archive.
 
