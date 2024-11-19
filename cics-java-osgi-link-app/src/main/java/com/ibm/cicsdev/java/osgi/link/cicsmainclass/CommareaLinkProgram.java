@@ -10,7 +10,7 @@ import com.ibm.cics.server.Task;
  * Demonstrates how an OSGi CICS-MainClass program can link to a CICS program
  * with a COMMAREA.
  * <p>
- * The COMMAREA is populated with ebcdic character data in set fields
+ * The COMMAREA is populated with EBCDIC character data in set fields
  * <p>
  * The target program, {@value #TARGET_PROGRAM}, is linked to with this
  * COMMAREA. This should update the data in the COMMAREA.
