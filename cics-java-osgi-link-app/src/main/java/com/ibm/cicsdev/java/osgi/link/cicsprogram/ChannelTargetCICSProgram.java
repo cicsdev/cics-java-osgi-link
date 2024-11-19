@@ -58,7 +58,8 @@ public class ChannelTargetCICSProgram
 
         // Get the current channel and abend if none present
         Channel channel = this.task.getCurrentChannel();
-        if (channel == null) {
+        if (channel == null) 
+        {
             task.abend("NOCH");
         }
 
@@ -103,7 +104,8 @@ public class ChannelTargetCICSProgram
         Container bitContainer = channel.getContainer(BIT_CONTAINER_NAME,true); 
 
         // If the container actually exists then get the data
-        if (bitContainer != null) {       
+        if (bitContainer != null) 
+        {       
             ByteBuffer bb = ByteBuffer.wrap(bitContainer.get());               
 
             // Print contents of byte buffer as integer to task stdout stream
@@ -128,7 +130,8 @@ public class ChannelTargetCICSProgram
     {
         // Get String from the container, with existence checking set to true
         Container charContainer = channel.getContainer(CHAR_CONTAINER_NAME,true);
-        if (charContainer != null) {
+        if (charContainer != null)
+        {
             String charData = charContainer.getString();
             task.getOut().println(PROGRAM_NAME + ": CHAR data  - " + charData);
 
