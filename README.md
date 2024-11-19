@@ -6,12 +6,12 @@ Demonstrates how OSGi CICS Java programs link to other CICS programs sending a C
 
 ## Samples overview
 ### com.ibm.cicsdev.java.osgi.link.cicsmainclass
-* [`CommareaLinkProgram.java`](cics-java-osgi-link-app\src\main\java\com\ibm\cicsdev\java\osgi\link\cicsmainclass\CommareaLinkProgram.java) - OSGi CICS-MainClass program that issues a link
-* [`CommareaTargetProgram.java`](cics-java-osgi-link-app\src\main\java\com\ibm\cicsdev\java\osgi\link\cicsmainclass\CommareaTargetProgram.java) - OSGi CICS-MainClass program that receives a link
+* [`CommareaLinkProgram.java`](cics-java-osgi-link-app/src/main/java/com/ibm/cicsdev/java/osgi/link/cicsmainclass/CommareaLinkProgram.java) - OSGi CICS-MainClass program that issues a link with a COMMAREA
+* [`CommareaTargetProgram.java`](cics-java-osgi-link-app/src/main/java/com/ibm/cicsdev/java/osgi/link/cicsmainclass/CommareaTargetProgram.java) - OSGi CICS-MainClass program linked to with a COMMAREA
 
 ### com.ibm.cicsdev.java.osgi.link.cicsprogram
-* [`ChannelLinkCICSProgram.java`](cics-java-osgi-link-app\src\main\java\com\ibm\cicsdev\java\osgi\link\cicsprogram\ChannelLinkCICSProgram.java) - OSGi {@link CICSProgram} defined program that issues a link
-* [`ChannelLinkCICSProgram.java`](cics-java-osgi-link-app\src\main\java\com\ibm\cicsdev\java\osgi\link\cicsprogram\ChannelLinkCICSProgram.java) - OSGi {@link CICSProgram} defined program linked to with a channel
+* [`ChannelLinkCICSProgram.java`](cics-java-osgi-link-app/src/main/java/com/ibm/cicsdev/java/osgi/link/cicsprogram/ChannelLinkCICSProgram.java) - OSGi {@link CICSProgram} defined program that issues a link with a channel
+* [`ChannelLinkCICSProgram.java`](cics-java-osgi-link-app/src/main/java/com/ibm/cicsdev/java/osgi/link/cicsprogram/ChannelLinkCICSProgram.java) - OSGi {@link CICSProgram} defined program linked to with a channel
 
 
 ## Repository structure
