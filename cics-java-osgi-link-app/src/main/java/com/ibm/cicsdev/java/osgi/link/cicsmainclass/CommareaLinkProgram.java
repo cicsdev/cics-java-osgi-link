@@ -10,13 +10,10 @@ import com.ibm.cics.server.Task;
  * Demonstrates how an OSGi CICS-MainClass program can link to a CICS program
  * with a COMMAREA.
  * <p>
- * The COMMAREA is populated with data in set fields. The first field is an
- * integer, the second field contains 4 characters, and the third field contains
- * a float.
+ * The COMMAREA is populated with ebcdic character data in set fields
  * <p>
  * The target program, {@value #TARGET_PROGRAM}, is linked to with this
- * COMMAREA. This should update the data in the COMMAREA. The integer field is
- * set to a new value and the first character in the second field is modified.
+ * COMMAREA. This should update the data in the COMMAREA.
  * 
  * @version 1.0.0
  * @since 1.0.0
@@ -82,11 +79,7 @@ public class CommareaLinkProgram
      * <ol>
      * <li>Creates the COMMAREA data and populates it with the integer,
      * character, and decimal data.</li>
-     * <li>Link to the target program {@value #TARGET_PROGRAM}.</li>
-     * <li>Validates the data that was updated in the COMMAREA.</li>
-     * <li>Gets the current CICS terminal</li>
-     * <li>Set the next transaction to {@value #NEXT_TRANSACTION} that runs
-     * {@link CommareaTargetProgram} with the current channel.</li>
+     * <li>Link to the target program {@value #TARGET_PROGRAM}.</li>     
      * </ol>
      * 
      * @throws CicsException
@@ -100,10 +93,6 @@ public class CommareaLinkProgram
 
         // Link to the program with the COMMAREA
         this.program.link(inputData);
-
-        // Verify the output data
-        //ProgramData outputData = ProgramData.fromBytes(inputData);
-        //verifyOutputData(outputData);
     }
 
 

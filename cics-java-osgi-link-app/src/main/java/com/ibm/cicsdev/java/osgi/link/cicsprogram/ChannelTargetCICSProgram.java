@@ -39,6 +39,17 @@ public class ChannelTargetCICSProgram
         this.task = task;
     }
 
+    /**
+     * Runs the business logic.
+     * <ol>
+     * <li>Validates input channel is present and terminates task with CICS Abend if not present.</li>
+     * <li>Prints out list of expected containers and contents to the terminal or stdout</li>
+     * <li>Creates the response container to return to the calling program    
+     * </ol>
+     * 
+     * @throws CicsException
+     *             If interating with any of the containers fails.
+     */
     @CICSProgram(PROGRAM_NAME)
     public void run() throws CicsException
     {
@@ -72,7 +83,7 @@ public class ChannelTargetCICSProgram
      */
     private void printContainers(Channel channel) throws CicsException
     {
-        //At V6.1 ContainerIterator is deprecated so getContainerNames() is used to list all containers in a channel
+        //At V6.1 ContainerIterator is deprecated so getContainerNames() is used to list containers in a channel
         List<String> containers = channel.getContainerNames();
         String containerNamesStr = containers.stream().map(String::trim).collect(Collectors.joining(", "));
         task.getOut().println(PROGRAM_NAME + ": Containers: " + containerNamesStr);

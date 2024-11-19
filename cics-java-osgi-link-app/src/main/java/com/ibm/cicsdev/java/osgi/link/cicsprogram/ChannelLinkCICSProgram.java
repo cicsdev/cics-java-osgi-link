@@ -80,8 +80,8 @@ public class ChannelLinkCICSProgram
     /**
      * Runs the business logic.
      * <ol>
-     * <li>Creates a bit container and populates it with data.</li>
-     * <li>Creates a char container and populates it with data.</li>
+     * <li>Creates a BIT container and populates it with data.</li>
+     * <li>Creates a CHAR container and populates it with data.</li>
      * <li>Links to the program {@value #TARGET_PROGRAM}.</li>
      * <li>Gets the response container and checks the value is
      * {@value #RESPONSE_OK}.</li>
@@ -113,7 +113,7 @@ public class ChannelLinkCICSProgram
     }
 
     /**
-     * Creates the bit container and populates it with binary data.
+     * Creates the BIT container and populates it with numeric data.
      * 
      * @param channel
      *            The channel to create the container in.
@@ -133,7 +133,7 @@ public class ChannelLinkCICSProgram
     }
 
     /**
-     * Creates the bit container and populates it with string data.
+     * Creates the CHAR container and populates it with character data.
      * 
      * @param channel
      *            The channel to create the container in.

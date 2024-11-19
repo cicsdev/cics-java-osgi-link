@@ -8,7 +8,8 @@ import com.ibm.cics.server.Task;
  * Demonstrates how an OSGi CICS-MainClass program can be targeted by an link
  * with a COMMAREA.
  * <p>
- * The COMMAREA is populated with character data as a byte array
+ * The COMMAREA is populated with the input character data as a byte array, and
+ * updated with a new EBCDIC encoded byte array.
  */
 public class CommareaTargetProgram
 {
@@ -18,7 +19,7 @@ public class CommareaTargetProgram
      private static final Charset LOCAL_CCSID = Charset.forName(System.getProperty("com.ibm.cics.jvmserver.local.ccsid"));
     
     /** The return COMMAREA data */
-    private static final String RETURN_DATA = "SCIC EVOL I";
+    private static final String RETURN_DATA = "SCIC evol I";
 
     /**
      * Entry point to the CICS program.
@@ -59,7 +60,7 @@ public class CommareaTargetProgram
         return commarea.getValue().length == 0;
     }
 
-    /** The current task */
+    /** The current CICS task */
     private final Task task;
 
     /** The input COMMAREA */
@@ -103,7 +104,7 @@ public class CommareaTargetProgram
     }
 
     /**
-     * Prints the COMMAREA data.
+     * Prints the COMMAREA input data to the terminal
      * 
      * @param data
      *            The program data.
