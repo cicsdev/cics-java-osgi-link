@@ -47,7 +47,8 @@ public class CommareaLinkProgram
     {
         Task task = Task.getTask();
         
-        Program target = new Program(TARGET_PROGRAM);
+        Program target = new Program();
+        target.setName(TARGET_PROGRAM);
 
         CommareaLinkProgram program = new CommareaLinkProgram(task, target);
 

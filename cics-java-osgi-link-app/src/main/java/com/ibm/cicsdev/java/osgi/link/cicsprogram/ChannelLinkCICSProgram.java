@@ -7,7 +7,7 @@ import com.ibm.cics.server.CicsException;
 import com.ibm.cics.server.Container;
 import com.ibm.cics.server.Program;
 import com.ibm.cics.server.Task;
-import com.ibm.cics.server.invocation.CICSProgram;
+
 
 /**
  * Demonstrates how an OSGi {@link CICSProgram} defined program can link to a
@@ -74,7 +74,8 @@ public class ChannelLinkCICSProgram
     public ChannelLinkCICSProgram()
     {
         this.task = Task.getTask();        
-        this.program = new Program(TARGET_PROGRAM);        
+        this.program = new Program();
+        this.program.setName(TARGET_PROGRAM);        
     }
 
     /**
@@ -90,7 +91,7 @@ public class ChannelLinkCICSProgram
      * @throws CicsException
      *             If interating with any of the containers fails.
      */
-    @CICSProgram(PROGRAM_NAME)
+
     public void run() throws CicsException
     {
         Channel channel = task.createChannel(CHANNEL_NAME);

@@ -112,7 +112,7 @@ public class CommareaTargetProgram
     private void printCommareaData(byte[] data)
     {
         String strCommarea = new String(data, LOCAL_CCSID);
-        this.task.getOut().println();
-        this.task.getOut().println(this.task.getProgramName() + ": COMMAREA input: " + strCommarea);
+        this.task.out.println();
+        this.task.out.println(this.task.getProgramName() + ": COMMAREA input: " + strCommarea);
     }
 }
