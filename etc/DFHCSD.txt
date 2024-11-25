@@ -4,6 +4,22 @@ DEFINE JVMSERVER(DFHOSGI) GROUP(CDEVCJOL)
         DESCRIPTION(Example JVM server definition)
         JVMPROFILE(DFHOSGI)
 
+DEFINE PROGRAM(CDEVMCTC) GROUP(CDEVCJOL)
+        DESCRIPTION(Java program that links to a program with a channel)
+        JVM(YES) JVMCLASS(com.ibm.cicsdev.java.osgi.link.cicsmainclass.*
+        ChannelLinkProgram)
+        JVMSERVER(DFHOSGI)
+        CONCURRENCY(REQUIRED)
+        EXECKEY(CICS)
+
+DEFINE PROGRAM(CDEVMCTM) GROUP(CDEVCJOL)
+        DESCRIPTION(Java program that is linked with a channel)
+        JVM(YES) JVMCLASS(com.ibm.cicsdev.java.osgi.link.cicsmainclass.*
+        ChannelTargetProgram)
+        JVMSERVER(DFHOSGI)
+        CONCURRENCY(REQUIRED)
+        EXECKEY(CICS)
+
 DEFINE PROGRAM(CDEVMCLM) GROUP(CDEVCJOL)
         DESCRIPTION(Java program that links to a program with COMMAREA)
         JVM(YES) JVMCLASS(com.ibm.cicsdev.java.osgi.link.cicsmainclass.*
