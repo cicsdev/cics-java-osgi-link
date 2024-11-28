@@ -108,7 +108,7 @@ public class ChannelTargetProgram
         while (iterator.hasNext())
         {
             Container container = iterator.next();
-            String containerName = container.getName();
+            String containerName = container.getName().trim();
             task.out.print(containerName);
 
             if (iterator.hasNext())
@@ -139,12 +139,12 @@ public class ChannelTargetProgram
             ByteBuffer bb = ByteBuffer.wrap(bitContainer.get());               
 
             // Print contents of byte buffer as integer to task stdout stream
-            task.out.println(this.programName + ": BIT data - int: " + bb.getInt()); 
+            task.out.println(this.programName + ": BIT  data - int: " + bb.getInt()); 
         }
 
         // If the container does not exist the container object will be null
         else {
-            task.out.println(this.programName + ": BIT data - " + "ERROR - INVALID CONTAINER");
+            task.out.println(this.programName + ": BIT  data - " + "ERROR - INVALID CONTAINER");
         }
     }
 
@@ -161,7 +161,7 @@ public class ChannelTargetProgram
     {
         Container charContainer = channel.getContainer(CHAR_CONTAINER_NAME);
         String charData = charContainer.getString();
-        task.out.println(programName + ": Char data - " + charData);
+        task.out.println(programName + ": CHAR data - " + charData);
     }
 
     /**
