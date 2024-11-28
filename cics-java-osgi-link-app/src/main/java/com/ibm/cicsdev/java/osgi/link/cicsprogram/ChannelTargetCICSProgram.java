@@ -109,12 +109,12 @@ public class ChannelTargetCICSProgram
             ByteBuffer bb = ByteBuffer.wrap(bitContainer.get());               
 
             // Print contents of byte buffer as integer to task stdout stream
-            task.getOut().println(PROGRAM_NAME + ": BIT data - int: " + bb.getInt()); 
+            task.getOut().println(PROGRAM_NAME + ": BIT  data - int: " + bb.getInt()); 
         }
 
         // If the container does not exist the container object will be null
         else {
-            task.getOut().println(PROGRAM_NAME + ": BIT data - " + "ERROR - INVALID CONTAINER");
+            task.getOut().println(PROGRAM_NAME + ": BIT  data - " + "ERROR - INVALID CONTAINER");
         }
     }
 
