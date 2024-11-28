@@ -36,7 +36,7 @@ This creates a CICS bundle folder in `cics-java-osgi-link-app/build/libs` direct
 2. If using the CICS bundle ZIP, the CICS JVM server name for the OSGi bundle part should be modified in the `cics.jvmserver` property in the gradle build properties file to match the required CICS JVMSERVER resource name, or alternatively can be set on the command line as follows.
 
 ```sh
-gradle clean build -Pjvmserver=MYJVM
+gradle clean build -Pcics.jvmserver=MYJVM
 ```
 
 ### Building with Apache Maven
