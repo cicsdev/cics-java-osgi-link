@@ -1,10 +1,10 @@
-DELETE GROUP(CDEVSAMP)
+DELETE GROUP(CDEVCJOL)
  
 DEFINE JVMSERVER(DFHOSGI) GROUP(CDEVCJOL)
         DESCRIPTION(Example JVM server definition)
         JVMPROFILE(DFHOSGI)
 
-DEFINE PROGRAM(CDEVMCTC) GROUP(CDEVCJOL)
+DEFINE PROGRAM(CDEVMCLC) GROUP(CDEVCJOL)
         DESCRIPTION(Java program that links to a program with a channel)
         JVM(YES) JVMCLASS(com.ibm.cicsdev.java.osgi.link.cicsmainclass.*
         ChannelLinkProgram)
@@ -12,7 +12,7 @@ DEFINE PROGRAM(CDEVMCTC) GROUP(CDEVCJOL)
         CONCURRENCY(REQUIRED)
         EXECKEY(CICS)
 
-DEFINE PROGRAM(CDEVMCTM) GROUP(CDEVCJOL)
+DEFINE PROGRAM(CDEVMCTC) GROUP(CDEVCJOL)
         DESCRIPTION(Java program that is linked with a channel)
         JVM(YES) JVMCLASS(com.ibm.cicsdev.java.osgi.link.cicsmainclass.*
         ChannelTargetProgram)
