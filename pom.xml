@@ -11,8 +11,8 @@
   <artifactId>cics-java-osgi-link</artifactId>
   <version>1.0.0</version>
   <name>CICS OSGi link application</name>
-  <description>Demonstrates how OSGi CICS programs link to other programs sending a commarea or
-    channel, or are linked to receiving a commarea or channel.</description>
+  <description>Demonstrates how OSGi CICS programs link to other programs sending a COMMAREA or
+    channel, or are linked to receiving a COMMAREA or channel.</description>
   <url>https://github.com/cicsdev/cics-java-osgi-link</url>
   <developers>
     <developer>
@@ -21,12 +21,6 @@
       <url>https://www.ibm.com/products/cics-transaction-server</url>
     </developer>
   </developers>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-    </license>
-  </licenses>
 
   <properties>
     <!-- CICS bundle properties -->
@@ -45,7 +39,7 @@
       <dependency>
         <groupId>com.ibm.cics</groupId>
         <artifactId>com.ibm.cics.ts.bom</artifactId>
-        <version>6.1-20220617120000</version>
+        <version>5.5-20200519131930-PH25409</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -61,7 +55,7 @@
         <plugin>
           <groupId>com.ibm.cics</groupId>
           <artifactId>cics-bundle-maven-plugin</artifactId>
-          <version>1.0.5</version>
+          <version>1.0.6</version>
           <extensions>true</extensions>
           <configuration>
             <defaultjvmserver>${cics.jvmserver}</defaultjvmserver>
@@ -73,17 +67,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.12.1</version>
-          <configuration>
-            <!-- Enable the CICS Annotation Processor -->
-            <annotationProcessorPaths>
-              <annotationProcessorPath>
-                <groupId>com.ibm.cics</groupId>
-                <artifactId>com.ibm.cics.server.invocation</artifactId>
-                <version>6.1</version>
-              </annotationProcessorPath>
-            </annotationProcessorPaths>
-          </configuration>
+          <version>3.12.1</version>          
         </plugin>
       </plugins>
     </pluginManagement>

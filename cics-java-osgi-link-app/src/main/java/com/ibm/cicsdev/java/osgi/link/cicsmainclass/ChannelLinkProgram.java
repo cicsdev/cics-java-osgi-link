@@ -1,11 +1,12 @@
 package com.ibm.cicsdev.java.osgi.link.cicsmainclass;
 
+import java.nio.ByteBuffer;
+
 import com.ibm.cics.server.Channel;
 import com.ibm.cics.server.CicsException;
 import com.ibm.cics.server.Container;
 import com.ibm.cics.server.Program;
 import com.ibm.cics.server.Task;
-import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 
 /**
  * Demonstrates how an OSGi CICS-MainClass program can link to a CICS program
@@ -40,6 +41,8 @@ public class ChannelLinkProgram
     private static final String CHAR_CONTAINER_NAME = "CharContainer";
     /** Char container data */
     private static final String STRING_INPUT = "Hello CICS Program";
+    /** binary container data */
+    private static final int INT_INPUT = 654321;
 
     /** Response container name */
     private static final String RESPONSE_CONTAINER_NAME = "Response";
@@ -133,10 +136,14 @@ public class ChannelLinkProgram
      */
     private void createBitContainer(Channel channel) throws CicsException
     {
-        Container intContainer = channel.createContainer(BIT_CONTAINER_NAME);
-        ProgramData data = new ProgramData(654321, 'y', 2.75f);
+        int bufferSize = Integer.BYTES;
+        ByteBuffer buffer = ByteBuffer.allocate(bufferSize);
 
-        intContainer.put(data.getBytes());
+        // Write the int data to the byte buffer
+        buffer.putInt(INT_INPUT);
+
+        Container bitContainer = channel.createContainer(BIT_CONTAINER_NAME);
+        bitContainer.put(buffer.array());
     }
 
     /**

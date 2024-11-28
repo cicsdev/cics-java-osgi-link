@@ -1,15 +1,13 @@
 package com.ibm.cicsdev.java.osgi.link.cicsmainclass;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.nio.ByteBuffer;
 
 import com.ibm.cics.server.Channel;
 import com.ibm.cics.server.CicsException;
 import com.ibm.cics.server.Container;
 import com.ibm.cics.server.ContainerIterator;
 import com.ibm.cics.server.Task;
-import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
+
 
 /**
  * Demonstrates how an OSGi CICS-MainClass program can be targeted by an EXEC
@@ -110,7 +108,7 @@ public class ChannelTargetProgram
         while (iterator.hasNext())
         {
             Container container = iterator.next();
-            String containerName = container.getName();
+            String containerName = container.getName().trim();
             task.out.print(containerName);
 
             if (iterator.hasNext())
@@ -132,10 +130,22 @@ public class ChannelTargetProgram
      */
     private void printBitContainer(Channel channel) throws CicsException
     {
-        Container bitContainer = channel.getContainer(BIT_CONTAINER_NAME);
-        ProgramData data = ProgramData.fromBytes(bitContainer.get());
-        task.out.println(programName + ": Bit data - int: " + data.getInteger() + ", char: " + data.getCharacter()
-                + ", decimal: " + data.getDecimal());
+        // Get byte array from the container, with existence checking set to true
+        Container bitContainer = channel.getContainer(BIT_CONTAINER_NAME); 
+
+        // If the container actually exists then get the data
+        if (bitContainer != null) 
+        {       
+            ByteBuffer bb = ByteBuffer.wrap(bitContainer.get());               
+
+            // Print contents of byte buffer as integer to task stdout stream
+            task.out.println(this.programName + ": BIT  data - int: " + bb.getInt()); 
+        }
+
+        // If the container does not exist the container object will be null
+        else {
+            task.out.println(this.programName + ": BIT  data - " + "ERROR - INVALID CONTAINER");
+        }
     }
 
     /**
@@ -151,7 +161,7 @@ public class ChannelTargetProgram
     {
         Container charContainer = channel.getContainer(CHAR_CONTAINER_NAME);
         String charData = charContainer.getString();
-        task.out.println(programName + ": Char data - " + charData);
+        task.out.println(programName + ": CHAR data - " + charData);
     }
 
     /**
