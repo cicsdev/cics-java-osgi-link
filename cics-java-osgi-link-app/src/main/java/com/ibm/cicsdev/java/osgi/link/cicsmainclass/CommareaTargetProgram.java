@@ -5,8 +5,7 @@ import com.ibm.cics.server.CommAreaHolder;
 import com.ibm.cics.server.Task;
 
 /**
- * Demonstrates how an OSGi CICS-MainClass program can be targeted by an link
- * with a COMMAREA.
+ * Demonstrates how an OSGi CICS-MainClass program can be targeted by a link with a COMMAREA.
  * <p>
  * The COMMAREA is populated with the input character data as a byte array, and
  * updated with a new EBCDIC encoded byte array.
@@ -33,7 +32,7 @@ public class CommareaTargetProgram
         // Instance of CICS task
         Task task = Task.getTask();
         
-        // Check if the commarea holder passed in is populated
+        // Check if the COMMAREA holder passed in is populated
         if (isCommareaEmpty(commarea))
         {
             throw new IllegalArgumentException("Commarea is empty.");
@@ -96,7 +95,7 @@ public class CommareaTargetProgram
      */
     public byte[] run()
     {
-        // Print the input commarea data
+        // Print the input COMMAREA data
         printCommareaData(this.commarea);
 
         // Build the return data as byte array using the local CICS encoding
