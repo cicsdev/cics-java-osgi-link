@@ -13,4 +13,4 @@ cicsBundle {
     }
 }
 
-description = 'CICS OSGi program control application - CICS bundle'
+description = 'CICS OSGi link application - CICS bundle'

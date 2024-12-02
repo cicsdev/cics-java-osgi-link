@@ -8,4 +8,4 @@ allprojects {
     }
 }
 
-description = 'CICS OSGi program control application'
+description = 'CICS OSGi link application'
