@@ -6,14 +6,20 @@ plugins {
 
 dependencies {
 
-    compileOnly enforcedPlatform("com.ibm.cics:com.ibm.cics.ts.bom:6.1-20240903141936-PH59389")
+    //Define the CICS Bill of Materials and apply to compile and annotation processor
+    def bom = "com.ibm.cics:com.ibm.cics.ts.bom:6.1-20240903141936-PH59389" 
+    compileOnly enforcedPlatform(bom)
+    annotationProcessor enforcedPlatform(bom)
+    
+    // JCICS library 
     compileOnly("com.ibm.cics:com.ibm.cics.server")
-    compileOnly("com.ibm.cics:com.ibm.cics.server.invocation.annotations")
-    annotationProcessor("com.ibm.cics:com.ibm.cics.server.invocation:6.1")
+
+    // CICS annotation processor for @CICSProgram support
+    annotationProcessor("com.ibm.cics:com.ibm.cics.server.invocation")
 
 }
 
-description = 'CICS OSGi program control application - OSGi bundle'
+description = 'CICS OSGi link application'
 
 jar {
     manifest {
