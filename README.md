@@ -11,7 +11,7 @@ Demonstrates how OSGi CICS Java programs link to other CICS programs sending a C
 
 ### com.ibm.cicsdev.java.osgi.link.cicsprogram
 * [`ChannelLinkCICSProgram.java`](cics-java-osgi-link-app/src/main/java/com/ibm/cicsdev/java/osgi/link/cicsprogram/ChannelLinkCICSProgram.java) - OSGi `@CICSProgram` defined program that issues a link with a channel
-* [`ChannelLinkCICSProgram.java`](cics-java-osgi-link-app/src/main/java/com/ibm/cicsdev/java/osgi/link/cicsprogram/ChannelLinkCICSProgram.java) - OSGi `@CICSProgram` defined program linked to with a channel
+* [`ChannelTargetCICSProgram.java`](cics-java-osgi-link-app/src/main/java/com/ibm/cicsdev/java/osgi/link/cicsprogram/ChannelTargetCICSProgram.java) - OSGi `@CICSProgram` defined program linked to with a channel
 
 
 ## Repository structure
