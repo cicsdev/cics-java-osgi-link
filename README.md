@@ -1,6 +1,8 @@
-# CICS OSGi program control application
+# CICS OSGi program link application
 
-Demonstrates how OSGi CICS programs link to other programs sending a commarea or channel, or are linked to receiving a commarea or channel.
+This sample demonstrates how to use the JCICS Program class to link between CICS Java programs using either a COMMAREA or a channel interface within a CICS OSGi JVM server. Java programs for both the calling and target programs are provided as follows:
+
+Sample DFHCSDUP input is provided to build the CICS resource definitions and Maven and Gradle build files are provided to build the Java applications and package into CICS bundle project ZIP files for deployment. Branches are provided for both CICS TS V5 and CICS TS V6 highlighting some of the changes in JCICS v2 at CICS TS V6. The V5 branch uses the OSGi CICSMainClass header to denote the program entry point, and the CICS TS V6 branch uses the new `@CICSProgram` annotation for the channel based programs and the CICSMainClass header for the COMMAREA based prgorams.
 
 ## Versions
 | CICS TS for z/OS Version | Branch                                 | Minimum Java Version | Build Status |
