@@ -38,6 +38,7 @@ This creates a CICS bundle folder in `cics-java-osgi-link-app/build/libs` direct
 ```sh
 gradle clean build -Pjvmserver=MYJVM
 ```
+The CICS bundle file will be stored in `cics-java-osgi-link-bundle/build/distributions/cics-java-osgi-link-bundle-1.0.0.zip`.
 
 ### Building with Apache Maven
 1.Run the following in a local command prompt which will create a JAR file for deployment.
