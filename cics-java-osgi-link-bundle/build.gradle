@@ -1,6 +1,7 @@
 plugins {
-    id 'com.ibm.cics.bundle' version "${cics_bundle_plugin_version}"
+    id 'com.ibm.cics.bundle' version "1.0.6"
 }
+
 
 dependencies {
     cicsBundlePart project(path: ':cics-java-osgi-link-app', configuration: 'archives')
@@ -8,8 +9,8 @@ dependencies {
 
 cicsBundle {
     build {
-        defaultJVMServer = "DFHOSGI"
+        defaultJVMServer = project.findProperty("cics.jvmserver") ?: "DFHOSGI"
     }
 }
 
-description = 'CICS OSGi program control application - CICS bundle'
+description = 'CICS OSGi link application - CICS bundle'

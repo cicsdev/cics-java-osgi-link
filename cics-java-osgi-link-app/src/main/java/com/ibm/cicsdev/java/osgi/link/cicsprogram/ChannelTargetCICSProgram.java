@@ -1,5 +1,6 @@
 package com.ibm.cicsdev.java.osgi.link.cicsprogram;
 
+import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,19 +9,24 @@ import com.ibm.cics.server.CicsException;
 import com.ibm.cics.server.Container;
 import com.ibm.cics.server.Task;
 import com.ibm.cics.server.invocation.CICSProgram;
-import com.ibm.cicsdev.java.osgi.link.data.ProgramData;
 
 /**
- * Demonstrates how an OSGi {@link CICSProgram} defined program can be linked to
- * with a channel.
+ * Demonstrates how an OSGi {@link CICSProgram} defined program can be linked to with a channel.
+ * 
  */
 public class ChannelTargetCICSProgram
 {
-    static final String PROGRAM_NAME = "CDEVCPCT";
-    private static final String BIT_CONTAINER_NAME = "BitContainer";
-    private static final String CHAR_CONTAINER_NAME = "CharContainer";
-    private static final String RESPONSE_CONTAINER_NAME = "Response";
+    static final String PROGRAM_NAME = "CDEVMCTC";
+    
+    /** Bit container name */
+    private static final String BIT_CONTAINER_NAME = "BIT_CONT";
 
+    /** Char container name */
+    private static final String CHAR_CONTAINER_NAME = "CHAR_CONT";
+
+    /** Response container name */
+    private static final String RESPONSE_CONTAINER_NAME = "RESPONSE_CONT"; 
+    
     private final Task task;
 
     public ChannelTargetCICSProgram()
@@ -33,17 +39,34 @@ public class ChannelTargetCICSProgram
         this.task = task;
     }
 
+    /**
+     * Runs the business logic.
+     * <ol>
+     * <li>Validates input channel is present and terminates task with CICS Abend if not present.</li>
+     * <li>Prints out list of expected containers and contents to the terminal or stdout</li>
+     * <li>Creates the response container to return to the calling program    
+     * </ol>
+     * 
+     * @throws CicsException
+     *             If interating with any of the containers fails.
+     */
     @CICSProgram(PROGRAM_NAME)
     public void run() throws CicsException
     {
-        task.getOut().println();
+        // Get details of the CICS task
+        task.getOut().println();        
 
+        // Get the current channel and abend if none present
         Channel channel = this.task.getCurrentChannel();
+        if (channel == null) 
+        {
+            task.abend("NOCH");
+        }
 
         // Print all the containers in the channel
         printContainers(channel);
 
-        // Print the bit and char containers
+        // Print the contents of bit and char containers
         printBitContainer(channel);
         printCharContainer(channel);
 
@@ -61,10 +84,9 @@ public class ChannelTargetCICSProgram
      */
     private void printContainers(Channel channel) throws CicsException
     {
+        //At V6.1 ContainerIterator is deprecated so getContainerNames() is used to list containers in a channel
         List<String> containers = channel.getContainerNames();
-
         String containerNamesStr = containers.stream().map(String::trim).collect(Collectors.joining(", "));
-
         task.getOut().println(PROGRAM_NAME + ": Containers: " + containerNamesStr);
     }
 
@@ -77,11 +99,23 @@ public class ChannelTargetCICSProgram
      *             If reading the container fails.
      */
     private void printBitContainer(Channel channel) throws CicsException
-    {
-        Container bitContainer = channel.getContainer(BIT_CONTAINER_NAME);
-        ProgramData data = ProgramData.fromBytes(bitContainer.get());
-        task.getOut().println(PROGRAM_NAME + ": Bit data - int: " + data.getInteger() + ", char: " + data.getCharacter()
-                + ", decimal: " + data.getDecimal());
+    {              
+        // Get byte array from the container, with existence checking set to true
+        Container bitContainer = channel.getContainer(BIT_CONTAINER_NAME,true); 
+
+        // If the container actually exists then get the data
+        if (bitContainer != null) 
+        {       
+            ByteBuffer bb = ByteBuffer.wrap(bitContainer.get());               
+
+            // Print contents of byte buffer as integer to task stdout stream
+            task.getOut().println(PROGRAM_NAME + ": BIT  data - int: " + bb.getInt()); 
+        }
+
+        // If the container does not exist the container object will be null
+        else {
+            task.getOut().println(PROGRAM_NAME + ": BIT  data - " + "ERROR - INVALID CONTAINER");
+        }
     }
 
     /**
@@ -94,9 +128,18 @@ public class ChannelTargetCICSProgram
      */
     private void printCharContainer(Channel channel) throws CicsException
     {
-        Container charContainer = channel.getContainer(CHAR_CONTAINER_NAME);
-        String charData = charContainer.getString();
-        task.getOut().println(PROGRAM_NAME + ": Char data - " + charData);
+        // Get String from the container, with existence checking set to true
+        Container charContainer = channel.getContainer(CHAR_CONTAINER_NAME,true);
+        if (charContainer != null)
+        {
+            String charData = charContainer.getString();
+            task.getOut().println(PROGRAM_NAME + ": CHAR data  - " + charData);
+
+        // If the container does not exist the container object will be null
+        } else {
+            task.getOut().println(PROGRAM_NAME + ": CHAR data - " + "ERROR - INVALID CONTAINER");
+        }
+
     }
 
     /**
@@ -109,7 +152,9 @@ public class ChannelTargetCICSProgram
      */
     private void createResponseContainer(Channel channel) throws CicsException
     {
+        
         Container responseContainer = channel.createContainer(RESPONSE_CONTAINER_NAME);
         responseContainer.putString("OK");
+        
     }
 }

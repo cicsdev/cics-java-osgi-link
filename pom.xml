@@ -21,12 +21,6 @@
       <url>https://www.ibm.com/products/cics-transaction-server</url>
     </developer>
   </developers>
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-    </license>
-  </licenses>
 
   <properties>
     <!-- CICS bundle properties -->
@@ -61,7 +55,7 @@
         <plugin>
           <groupId>com.ibm.cics</groupId>
           <artifactId>cics-bundle-maven-plugin</artifactId>
-          <version>1.0.5</version>
+          <version>1.0.6</version>
           <extensions>true</extensions>
           <configuration>
             <defaultjvmserver>${cics.jvmserver}</defaultjvmserver>

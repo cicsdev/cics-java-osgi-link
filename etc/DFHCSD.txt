@@ -1,0 +1,33 @@
+DELETE GROUP(CDEVCJOL)
+ 
+DEFINE JVMSERVER(DFHOSGI) GROUP(CDEVCJOL)
+        DESCRIPTION(Example JVM server definition)
+        JVMPROFILE(DFHOSGI)
+
+DEFINE PROGRAM(CDEVMCLM) GROUP(CDEVCJOL)
+        DESCRIPTION(Java program that links to a program with COMMAREA)
+        JVM(YES) JVMCLASS(com.ibm.cicsdev.java.osgi.link.cicsmainclass.*
+        CommareaLinkProgram)
+        JVMSERVER(DFHOSGI)
+        CONCURRENCY(REQUIRED)
+        EXECKEY(CICS)
+
+DEFINE PROGRAM(CDEVMCTM) GROUP(CDEVCJOL)
+        DESCRIPTION(Java program that is linked with COMMAREA)
+        JVM(YES) JVMCLASS(com.ibm.cicsdev.java.osgi.link.cicsmainclass.*
+        CommareaTargetProgram)
+        JVMSERVER(DFHOSGI)
+        CONCURRENCY(REQUIRED)
+        EXECKEY(CICS)
+
+DEFINE TRANSACTION(MCLC) GROUP(CDEVCJOL)
+        DESCRIPTION(Runs the CICS program that links with a channel)
+        PROGRAM(CDEVMCLC) 
+
+DEFINE TRANSACTION(MCLM) GROUP(CDEVCJOL)
+        DESCRIPTION(Runs the CICS program that links with a COMMAREA)
+        PROGRAM(CDEVMCLM) 
+
+DEFINE BUNDLE(CDEVCJOL) GROUP(CDEVCJOL)
+        DESCRIPTION(CICS OSGi Java LINK samples) 
+        BUNDLEDIR(/u/cics/cics-java-osgi-link-bundle-1.0.0)
