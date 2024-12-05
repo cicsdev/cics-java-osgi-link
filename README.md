@@ -1,6 +1,6 @@
 # CICS OSGi Java program link application
 
-This sample demonstrates how to use the JCICS Program class to peform CICS LINK operations between CICS Java programs using either a COMMAREA or a channel interface within a CICS OSGi JVM server. 
+This sample demonstrates how to use the JCICS Program class to perform CICS LINK operations between CICS Java programs using either a COMMAREA or a channel interface within a CICS OSGi JVM server. 
 Java programs for both the calling and target programs are provided.
 
 Sample DFHCSDUP input is provided to build the CICS resource definitions for the transaction IDs, programs and bundles, 
