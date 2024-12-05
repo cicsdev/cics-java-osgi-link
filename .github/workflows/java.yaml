@@ -14,10 +14,10 @@ jobs:
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
-        jdk: [8, 11]
+        jdk: [8, 11, 17]
         experimental: [false]
         include:
-          - jdk: 17
+          - jdk: 21
             experimental: true
     steps:
       - uses: actions/checkout@v3
@@ -45,10 +45,10 @@ jobs:
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
-        jdk: [8, 11]
+        jdk: [8, 11, 17]
         experimental: [false]
         include:
-          - jdk: 17
+          - jdk: 21
             experimental: true
     steps:
     - uses: actions/checkout@v3
