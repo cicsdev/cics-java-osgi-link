@@ -25,9 +25,8 @@
   <properties>
     <!-- CICS bundle properties -->
     <cics.jvmserver>DFHOSGI</cics.jvmserver>
-    <java.version>8</java.version>
-
     <!-- Java project properties -->
+    <java.version>8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -45,43 +44,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <build>
-    <pluginManagement>
-      <!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-      <plugins>
-
-        <!-- CICS bundle plugin for generating CICS bundles -->
-        <plugin>
-          <groupId>com.ibm.cics</groupId>
-          <artifactId>cics-bundle-maven-plugin</artifactId>
-          <version>1.0.6</version>
-          <extensions>true</extensions>
-          <configuration>
-            <defaultjvmserver>${cics.jvmserver}</defaultjvmserver>
-          </configuration>
-        </plugin>
-
-
-        <!-- Java compiler with the CICS annotation processor -->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.12.1</version>
-          <configuration>
-            <!-- Enable the CICS Annotation Processor -->
-            <annotationProcessorPaths>
-              <annotationProcessorPath>
-                <groupId>com.ibm.cics</groupId>
-                <artifactId>com.ibm.cics.server.invocation</artifactId>
-                <version>6.1</version>
-              </annotationProcessorPath>
-            </annotationProcessorPaths>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
 
   <modules>
     <module>cics-java-osgi-link-app</module>
