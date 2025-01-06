@@ -9,7 +9,7 @@ dependencies {
 
 cicsBundle {
     build {
-        defaultJVMServer = "DFHOSGI"
+        defaultJVMServer = project.findProperty("cics.jvmserver") ?: "DFHOSGI"
     }
 }
 
