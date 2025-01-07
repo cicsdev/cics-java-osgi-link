@@ -21,40 +21,34 @@ Demonstrates how OSGi CICS Java programs link to other CICS programs sending a C
 
 
 ## Building
-The sample can be built using the supplied Gradle or Maven build files to produce an OSGi bundle JAR file and optionally a CICS Bundle archive.
+The sample can be built using Gradle or Maven to produce an OSGi bundle JAR file and optionally a CICS Bundle archive.
 
-### Gradle (command line)
+### Building with Gradle
 
-1. Run the following in a local command prompt:
+A JAR file will be created in `cics-java-osgi-link-app/build/libs/cics-java-osgi-link-app-1.0.0.jar` and a CICS bundle ZIP file in `cics-java-osgi-link-app/build/distributions/cics-java-osgi-link-bundle-1.0.0.zip`.
 
-```sh
-gradle clean build
-```
+If using the CICS bundle ZIP, the CICS JVM server name for the OSGi bundle part should be modified in the `cics.jvmserver` property in the gradle build properties file to match the required CICS JVMSERVER resource name, or alternatively can be set on the command line.
 
-This creates a CICS bundle folder in `cics-java-osgi-link-app/build/libs` directory and a CICS bundle ZIP file inside the `cics-java-osgi-link-app/build/distributions` directory.
 
-2. If using the CICS bundle ZIP, the CICS JVM server name for the OSGi bundle part should be modified in the `cics.jvmserver` property in the gradle build properties file to match the required CICS JVMSERVER resource name, or alternatively can be set on the command line as follows.
-
-```sh
-gradle clean build -Pcics.jvmserver=MYJVM
-```
+| Tool | Command |
+| ----------- | ----------- |
+| Gradle Wrapper (Linux/Mac) | ```./gradlew clean build``` |
+| Gradle Wrapper (Windows) | ```gradle.bat clean build``` |
+| Gradle (command-line) | ```gradle clean build``` |
+| Gradle (command-line & setting jvmserver) | ```gradle clean build -Pcics.jvmserver=MYJVM``` |
 
 ### Building with Apache Maven
-1.Run the following in a local command prompt which will create a JAR file for deployment.
+A JAR file will be created in `cics-java-osgi-link-app/target/cics-java-osgi-link-app-1.0.0.jar`. The CICS bundle ZIP file will be stored in `cics-java-osgi-link-bundle/target/cics-java-osgi-link-bundle-1.0.0.zip`.
 
-```sh
-mvn clean verify
-```
+If building a CICS bundle ZIP the CICS bundle plugin is driven using the maven verify phase. The CICS JVM server name for the OSGi bundle part should be modified in the `cics.jvmserver` property in the pom.xml to match the required CICS JVMSERVER resource name, or alternatively can be set on the command line.
 
-This creates a CICS bundle folder in the target directory.
 
-2. If building a CICS bundle ZIP the CICS bundle plugin is driven using the maven verify phase. The CICS JVM server name for the OSGi bundle part should be modified in the `cics.jvmserver` property in the pom.xml to match the required CICS JVMSERVER resource name, or alternatively can be set on the command line as follows.
-
-```sh
-mvn clean verify -Dcics.jvmserver=MYJVM
-```
-
-The CICS bundle file will be stored in `cics-java-osgi-link-bundle/target/cics-java-osgi-link-bundle-1.0.0.zip`.
+| Tool | Command |
+| ----------- | ----------- |
+| Maven Wrapper (Linux/Mac) | ```./mvnw clean verify``` |
+| Maven Wrapper (Windows) | ```mvnw.cmd clean verify``` |
+| Maven (command-line) | ```mvn clean verify``` |
+| Maven (command-line & setting jvmserver) | ```mvn clean verify -Dcics.jvmserver=MYJVM``` |
 
 ## Deploying to CICS
 
