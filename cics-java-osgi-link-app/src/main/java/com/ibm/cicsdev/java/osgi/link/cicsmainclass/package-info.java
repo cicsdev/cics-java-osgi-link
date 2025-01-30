@@ -1,5 +1,6 @@
-
 /**
+ * Copyright IBM Corp. 2025
+ * 
  * Demonstrates how to define OSGi CICS programs using the CICS-MainClass OSGi
  * manifest header, and how to link and be linked to in those programs.
  * 
