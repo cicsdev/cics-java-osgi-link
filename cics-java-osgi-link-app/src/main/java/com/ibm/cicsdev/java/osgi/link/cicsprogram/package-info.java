@@ -1,5 +1,6 @@
-
 /**
+ * Copyright IBM Corp. 2025
+ * 
  * Demonstrates how to define OSGi CICS programs using the
  * {@link com.ibm.cics.server.invocation.CICSProgram @CICSProgram} annotation,
  * and how to link and be linked to in those programs.

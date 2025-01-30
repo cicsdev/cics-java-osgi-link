@@ -1,4 +1,6 @@
 /**
+ * Copyright IBM Corp. 2025
+ * 
  * This package contains objects which encapsulate data being passed between
  * programs.
  * 
