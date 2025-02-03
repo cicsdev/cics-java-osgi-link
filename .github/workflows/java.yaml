@@ -24,7 +24,7 @@ jobs:
                 echo -e "$COPYRIGHT_STATEMENT\n$(cat "$file")" > "$file"
               fi
             done
-          dones
+          done
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
