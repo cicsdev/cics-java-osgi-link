@@ -19,6 +19,6 @@ new `@CICSProgram` annotation for the channel based programs and the CICS-MainCl
 This project is licensed under [Eclipse Public License - v 2.0](LICENSE).
 
 ## Usage terms
-By downloading, installing, and/or using this sample, you agree to the applicable IBM license terms and the separate license terms of any dependencies that might be required as part of the installation and/or execution of the sample:
+By downloading, installing, and/or using this sample, you acknowledge that separate license terms may apply to any dependencies that might be required as part of the installation and/or execution and/or automated build of the sample, including the following IBM license terms for relevant IBM components:
 
 • IBM CICS development components terms: https://www.ibm.com/support/customer/csol/terms/?id=L-ACRR-BBZLGX
