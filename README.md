@@ -29,26 +29,44 @@ A JAR file will be created in `cics-java-osgi-link-app/build/libs/cics-java-osgi
 
 If using the CICS bundle ZIP, the CICS JVM server name for the OSGi bundle part should be modified in the `cics.jvmserver` property in the gradle build properties file to match the required CICS JVMSERVER resource name, or alternatively can be set on the command line.
 
-
-| Tool | Command |
-| ----------- | ----------- |
-| Gradle Wrapper (Linux/Mac) | ```./gradlew clean build``` |
-| Gradle Wrapper (Windows) | ```gradle.bat clean build``` |
-| Gradle (command-line) | ```gradle clean build``` |
-| Gradle (command-line & setting jvmserver) | ```gradle clean build -Pcics.jvmserver=MYJVM``` |
+**Gradle Wrapper (Linux/Mac):**
+```shell
+./gradlew clean build
+```
+**Gradle Wrapper (Windows):**
+```shell
+gradle.bat clean build
+```
+**Gradle (command-line):**
+```shell
+gradle clean build
+```
+**Gradle (command-line & setting jvmserver):**
+```shell
+gradle clean build -Pcics.jvmserver=MYJVM
+```
 
 ### Building with Apache Maven
 A JAR file will be created in `cics-java-osgi-link-app/target/cics-java-osgi-link-app-1.0.0.jar`. The CICS bundle ZIP file will be stored in `cics-java-osgi-link-bundle/target/cics-java-osgi-link-bundle-1.0.0.zip`.
 
 If building a CICS bundle ZIP the CICS bundle plugin is driven using the maven verify phase. The CICS JVM server name for the OSGi bundle part should be modified in the `cics.jvmserver` property in the pom.xml to match the required CICS JVMSERVER resource name, or alternatively can be set on the command line.
 
-
-| Tool | Command |
-| ----------- | ----------- |
-| Maven Wrapper (Linux/Mac) | ```./mvnw clean verify``` |
-| Maven Wrapper (Windows) | ```mvnw.cmd clean verify``` |
-| Maven (command-line) | ```mvn clean verify``` |
-| Maven (command-line & setting jvmserver) | ```mvn clean verify -Dcics.jvmserver=MYJVM``` |
+**Maven Wrapper (Linux/Mac):**
+```shell
+./mvnw clean verify
+```
+**Maven Wrapper (Windows):**
+```shell
+mvnw.cmd clean verify
+```
+**Maven (command-line):**
+```shell
+mvn clean verify
+```
+**Maven (command-line & setting jvmserver):**
+```shell
+mvn clean verify -Dcics.jvmserver=MYJVM
+```
 
 ## Deploying to CICS
 
