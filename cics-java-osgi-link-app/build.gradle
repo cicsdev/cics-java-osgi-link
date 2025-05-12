@@ -23,6 +23,6 @@ description = 'CICS OSGi link application'
 
 jar {
     manifest {
-        from 'src/main/resources/META-INF/MANIFEST.MF'
+        from 'META-INF/MANIFEST.MF'
     }
 }
