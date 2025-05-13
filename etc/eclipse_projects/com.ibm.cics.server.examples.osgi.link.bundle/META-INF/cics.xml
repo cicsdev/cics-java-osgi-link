@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<manifest xmlns="http://www.ibm.com/xmlns/prod/cics/bundle" id="com.ibm.cics.server.examples.osgi.link.bundle" bundleMajorVer="1" bundleMinorVer="0" bundleMicroVer="0" bundleVersion="1" bundleRelease="0" build="IntB-202108252027">
+    <meta_directives>
+        <timestamp>2025-05-13T13:38:13.981+01:00</timestamp>
+    </meta_directives>
+    <define name="CDEVMCLM" type="http://www.ibm.com/xmlns/prod/cics/bundle/PROGRAM" path="CDEVMCLM.program"/>
+    <define name="CDEVMCTM" type="http://www.ibm.com/xmlns/prod/cics/bundle/PROGRAM" path="CDEVMCTM.program"/>
+    <define name="MCLC" type="http://www.ibm.com/xmlns/prod/cics/bundle/TRANSACTION" path="MCLC.transaction"/>
+    <define name="MCLM" type="http://www.ibm.com/xmlns/prod/cics/bundle/TRANSACTION" path="MCLM.transaction"/>
+    <define name="cics-java-osgi-link-app" type="http://www.ibm.com/xmlns/prod/cics/bundle/OSGIBUNDLE" path="cics-java-osgi-link-app.osgibundle"/>
+</manifest>
