@@ -119,7 +119,7 @@ A JAR file is created inside the `cics-java-osgi-link-app/target` directory and 
 ---
 
 ## Deploying to CICS
-1. Configure an OSGI JVMSERVER. 
+1. Configure an OSGi JVMSERVER. 
 
 2. CICS resource definitions for the bundle, programs, transactions and a JVM server are supplied in a group CDEVSAMP as a DFHCSDUP sample input stream supplied in [`DFHCSD.txt`](etc/DFHCSD.txt). Alternatively they can be installed using the bundle parts supplied with the cics-java-osgi-link-bundle project.
 Note that the resource definitions for the CICS programs `CDEVMCLC` and `CDEVMCTC` for the Channel sample are not supplied as they will be auto-installed by the processing of @CICSProgram annotation.
