@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cicsdefinitionprogram name="CDEVMCLC"
+    description="Java program that links to a program with a channel"
+    jvm="YES"
+    jvmclass="com.ibm.cicsdev.java.osgi.link.cicsmainclass.ChannelLinkProgram"
+    jvmserver="DFHOSGI" />
