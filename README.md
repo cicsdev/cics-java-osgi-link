@@ -44,7 +44,7 @@ Choose from the following approach:
 
 ### Option 1 - Building with Eclipse
 
-The sample comes pre-configured for use with a standard JDK 1.8 and the CICS TS V5.5 Java EE 6/7 Target Platform. When you initially import the project to your IDE, if your IDE is not configured for a JDK 1.8, or does not have CICS Explorer SDK installed with the correct 'target platform' set, you might experience local project compile errors. 
+The sample comes pre-configured for use with a standard JDK 17 and the CICS TS V6.1 Java EE 9 Target Platform. When you initially import the project to your IDE, if your IDE is not configured for a JDK 17, or does not have CICS Explorer SDK installed with the correct 'target platform' set, you might experience local project compile errors. 
 
 To resolve issues:
 * ensure you have the CICS Explorer SDK plug-in installed
