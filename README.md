@@ -6,8 +6,8 @@ Java programs for both the calling and target programs are provided.
 Sample DFHCSDUP input is provided to build the CICS resource definitions for the transaction IDs, programs and bundles, 
 along with Gradle and Maven build files to build the Java applications and package into CICS bundle project ZIP files for deployment. 
 Branches are provided for both CICS TS V5 and CICS TS V6 highlighting changes in JCICS v2 at CICS TS V6. 
-The V5 branch uses the OSGi CICS-MainClass  header to denote the program entry point, and the CICS TS V6 branch uses the 
-new `@CICSProgram` annotation for the channel based programs and the CICS-MainClass header for the COMMAREA based prgorams.
+The V5 branch uses the OSGi CICS-MainClass header to denote the program entry point, and the CICS TS V6 branch uses the 
+new `@CICSProgram` annotation for the channel based programs and the CICS-MainClass header for the COMMAREA based programs.
 
 ## Versions
 | CICS TS for z/OS Version | Branch                                 | Minimum Java Version | Build Status |
